@@ -1,0 +1,113 @@
+@import "mixin"; //scss파일 을 가져오겠다 import 파일명
+.main-visual {
+  overflow: hidden; //스크롤 숨겨줌
+  .visual-wrap {
+    .visual {
+      height: 100vh; //vh는 디바이스의 높이를 100으로 본다 (즉 풀화면)
+      background-repeat: no-repeat;
+      background-size: cover;
+      @include center(); //@include 함수명
+      // == display: flex;
+      // justify-content: center;
+      // align-items: center;
+      text-align: center;
+      //color: #fff;
+      .txt-box {
+        color: #fff;
+        h2 {
+          font-size: 80px;
+          font-weight: 700;
+          margin-bottom: 20px;
+          text-shadow: 5px 5px 100px rgba(0, 0, 0, 0.4); //box의그림자 형성 x축 y축
+          // text도 그림자 가능
+          overflow: hidden;
+        }
+        p:nth-of-type(1) {
+          //여러개의 p가 존재할 때 특정한 p를 사용하고 싶을 때
+          //p:nth-of-type()을 사용한다.
+          // :nth-child()는 자식간에 부여된게 같을 때
+          font-size: 40px;
+          font-weight: 500;
+          margin-bottom: 20px;
+          //width: 400px;
+          @include multiellipsis(2, 1.5);
+          //== white-space: nowrap;
+          // overflow: hidden;
+          // text-overflow: ellipsis; // text...을 만들어버림
+        }
+        p:nth-of-type(2) span {
+          font-size: 20px;
+          font-weight: 500;
+          border: 1px solid rgba(0, 0, 0, 0.25);
+          background-color: opacify(rgba(0, 0, 0, 0.25), 0);
+          color: #fff;
+          border-radius: 100px;
+          padding: 10px 30px;
+          display: inline-block;
+          @include longshadow(30, darken(#f00, 10));
+          overflow: hidden;
+        }
+      }
+    }
+
+    @for $i from 1 to 6 {
+      //== through 5
+      .visual0#{$i} {
+        background-image: url("../images/data/visual0#{$i}.jpg");
+      }
+    }
+    // .visual01 {
+    //   background-image: url("../images/data/visual01.jpg");
+    // }
+    // .visual02 {
+    //   background-image: url("../images/data/visual02.jpg");
+    // }
+    // .visual03 {
+    //   background-image: url("../images/data/visual03.jpg");
+    // }
+    // .visual04 {
+    //   background-image: url("../images/data/visual04.jpg");
+    // }
+    // .visual05 {
+    //   background-image: url("../images/data/visual05.jpg");
+    // }
+  }
+  .pagination {
+    position: absolute;
+    bottom: 200px;
+    z-index: 2;
+    display: block;
+    text-align: center;
+
+    // .swiper-pagination-bullet {
+    //   width: 20px;
+    //   height: 20px;
+    //   border-radius: 200px; //모양 각도 바꾼다( 0은 사각형)
+    //   background-color: transparent; //transparent는 투명하게 만든다
+    //   border: 4px solid #fff;
+    //   opacity: 1;
+    //   transition: all 0.25s ease;
+    //   &-active {
+    //     background-color: #fff;
+    //     width: 100px;
+    //   }
+    // }
+  }
+  .btn {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    background: none;
+    border: none;
+    &-prev {
+      left: 100px;
+    }
+    &-next {
+      right: 100px;
+    }
+    material-icons {
+      font-size: 48px;
+      color: #fff;
+    }
+  }
+}

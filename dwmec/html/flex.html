@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .Par {
+        height: 800px;
+        /* width: 480px; */
+        border: 1px solid #000;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        /* flex-flow : 방향, wrap  합친*/
+        justify-content: center;
+
+        /* row일때 justify-content 가로정렬, align 세로 , space-around, evenly(여백 공간 동일하게), between(양끝 여백없이)
+         */
+      }
+      .son {
+        box-sizing: border-box;
+        /*  */
+        width: 100px;
+        height: 100px;
+        border: 1px solid #f00;
+        /* flex-grow: 1; 자식들이 여백들을 가져간다, nth-child()-> 는 자식들의 순서를 지정할수 있다, flex */
+      }
+
+      /* order 순서지정 */
+    </style>
+  </head>
+  <body>
+    <div class="Par">
+      <div class="son">01</div>
+      <div class="son">02</div>
+      <!-- <div class="son">03</div>
+      <div class="son">04</div>
+      <div class="son">05</div> -->
+    </div>
+  </body>
+</html>
