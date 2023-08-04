@@ -1,0 +1,231 @@
+$main-color: #f60;
+@import "vars";
+body {
+  font-family: "Roboto", "Noto Sans KR", "돋음", sans-serif;
+  color: #111;
+  font-size: 16px;
+  min-height: 1000px;
+  min-width: 1000px;
+} //폰트 기본 설정
+a {
+  color: inherit; //a는 부모의 컬러를 상속받지 못해서 따로 지정해야함
+  text-decoration: none; // 밑줄 등 표시 없애줌
+}
+.hidden {
+  //클래스 접근시 .을 사용한다
+  display: none;
+}
+.container {
+  //background-color: #ccc;
+  width: 1200px;
+  margin: 0 auto;
+  // border: 4px solid #f00;
+}
+.h2-title {
+  font-size: $h2;
+  font-size: 700;
+  padding-bottom: 50px;
+}
+.contants-box {
+  padding: 80px 0;
+}
+p {
+  line-height: 1.5; //줄자간 높이설정
+}
+.popup {
+  position: fixed; //스크롤 따라서 같이 내려온다
+  left: 50px;
+  top: 100px;
+  background-color: #ffff;
+  padding: 20px; //여백
+  border: 1px solid #000; //테두리
+  z-index: 100; //정수만 사용
+  .contants {
+    width: 400px;
+    height: 400px;
+    background-color: #ccc;
+  }
+
+  .btns {
+    button {
+      color: $main-color;
+      background-color: #ccc;
+    }
+  }
+}
+.header {
+  position: fixed; //원레 레이아웃을 유지하면서 z-index 사용가능
+  width: 100%;
+  color: #ffff;
+  z-index: 105;
+  height: 100px;
+  overflow-y: hidden; //
+  transition: all 0.5s ease;
+  &.scroll {
+    height: 100px;
+    background-color: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px);
+    color: #111;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+    .logo {
+      .white {
+        opacity: 0;
+      }
+      .black {
+        opacity: 1;
+      }
+    }
+  }
+  &.open {
+    height: 350px;
+    background-color: #ffff;
+    color: #111;
+    .logo {
+      .white {
+        opacity: 0;
+      }
+      .black {
+        opacity: 1;
+      }
+    }
+  }
+
+  .logo {
+    position: absolute; // 페이지에 나타나지만 없는 존재
+    left: 0;
+    top: 0;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    img {
+      transition: all 0.25s ease;
+    }
+    .white {
+      position: absolute;
+    }
+    .black {
+      opacity: 0; // 투명도
+    }
+  }
+  .gnb {
+    display: flex;
+    justify-content: center;
+    > ul {
+      display: flex; //열 정렬
+      justify-content: center; //글문단 정렬 (start, center, end) ,space around
+      text-align: center; // 글자간 가운데 정렬
+      //line-height: 1.5;
+    }
+    //a, span, strong, em,input -> 이들은 높이와 너비를 가질 수 없어서 디스플레이처리한다
+    ul {
+      li {
+        &:hover {
+          .depth01 {
+            color: $main-color; //hover 마우스 클릭, &는 자기자신을 나타냄
+            &::after {
+              transform: scaleX(1);
+            }
+          }
+        }
+        .depth01 {
+          font-size: 20px;
+          display: flex;
+          height: 100px;
+          padding: 0 30px 0 30px; //=0 30px; 써도 무방함
+          align-items: center; //세로 정렬
+
+          position: relative;
+
+          &::after {
+            //.depth01 뒤에 작성
+            content: "";
+            display: block;
+            //width: 100%;
+
+            transform: scaleX(0); //scalex는 가운데 축으로 0일때
+            height: 3px;
+            position: absolute;
+            left: 30px;
+            right: 30px;
+            bottom: 0;
+            background-color: $main-color;
+            transition: all 0.25s ease;
+          }
+        }
+
+        .depth02 {
+          padding-top: 30px;
+          li {
+            a {
+              font-size: 14px;
+              display: block;
+              padding: 10px 0;
+              &:hover {
+                color: $main-color;
+              }
+            }
+          }
+        }
+      }
+    }
+    a {
+      transition: all 0.25s ease; // 트렌지션 시간지정
+    }
+  }
+}
+.main-visual {
+  overflow: hidden;
+  .visual-wrap {
+    .visual {
+      height: 100vh;
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .visual01 {
+      background-image: url("../images/main/visual01.jpg");
+    }
+    .visual02 {
+      background-image: url("../images/main/visual02.png");
+    }
+    .visual03 {
+      background-image: url("../images/main/visual03.jpg");
+    }
+    .visual04 {
+      background-image: url("../images/main/visual04.png");
+    }
+    .visual05 {
+      background-image: url("../images/main/visual05.jpg");
+    }
+    .visual06 {
+      background-image: url("../images/main/visual06.jpg");
+    }
+    // video {
+    //   width: 100vw;
+    // }
+  }
+  .pagination {
+    position: absolute;
+    bottom: 200px;
+    z-index: 2;
+    display: block;
+    text-align: center;
+
+    .swiper-pagination-bullet {
+      width: 100px;
+      height: 20px;
+      border-radius: 20px; //모양 각도 바꾼다( 0은 사각형)
+      background-color: transparent; //transparent는 투명하게 만든다
+      border: 4px solid #fff;
+      opacity: 1;
+      transition: all 0.25s ease;
+      &-active {
+        background-color: #fff;
+        width: 100px;
+      }
+    }
+  }
+}
