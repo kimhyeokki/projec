@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/layout.css" />
+  </head>
+  <body>
+    <ul class="computer">
+      <li><img src="./images/rock.svg" alt="" /></li>
+      <li><img src="./images/paper.svg" alt="" /></li>
+      <li><img src="./images/scissors.svg" alt="" /></li>
+    </ul>
+    <ul class="player">
+      <li><img src="./images/rock.svg" alt="" /></li>
+      <li><img src="./images/paper.svg" alt="" /></li>
+      <li><img src="./images/scissors.svg" alt="" /></li>
+    </ul>
+    <div class="result">
+      <!-- <ul>
+        <li class="win">win</li>
+        <li class="draw">draw</li>
+        <li class="lose">Lose</li>
+      </ul> -->
+    </div>
+    <script>
+      let a = [0, 1, 2];
+      let b = a; //-> b도 a도 같은 데이터를 참조한다, 배열일때 [0,1,2]
+      const rpsList = document.querySelectorAll(".computer li"); //배열이된다
+      console.log(rpsList);
+      const result = document.querySelector(".result");
+      document.createElement("ul");
+      result.appendChild(document.createElement("ul"));
+      const ul = result.querySelector("ul");
+      // const li = document.createElement("li");
+      // -> <li></li>
+      // li.classList.add("win");
+      // -> <li class="win"></li>
+      // li.textContent = "w";
+      // -> <li class="win"> w </li>
+      // ul.appendChild(li);
+      // -> <ul> <li class="win"> w </li> </ul>
+
+      rpsList.forEach(function (item) {
+        item.style.display = "none";
+      });
+
+      // result.textContent = "이김";
+      // for (let i = 0; i < 3; i++) {
+      //   rpsList[i].style.display = "none";
+      // }
+
+      // function makeRandom(min, max) {
+      //   return Math.floor(Math.random() * (max - min + 1)) + min;
+      // }
+      // for (let i = 0; i < 6; i++) {
+      //   const lotto = makeRandom(1, 46);
+      //   console.log(lotto);
+      // }-----------------------------lotto-----------------------------------------------
+      //console.log(randomChoice(0, 3));
+      //randomChoice();
+      let random;
+      function rancomchoice() {
+        rpsList[0].style.display = "none";
+        rpsList[1].style.display = "none";
+        rpsList[2].style.display = "none";
+        random = Math.floor(Math.random() * 3);
+        rpsList[random].style.display = "block";
+      } // 가위 바위 보 이미지를   랜덤으로 보여준다.
+
+      function appendItem(txt, className) {
+        const li = document.createElement("li");
+        li.classList.add(className);
+        li.textContent = txt;
+        ul.appendChild(li);
+        // == ul.innerHtml +="<li class='win'> w </li>"
+        //                   `<li class="${className}">${txt}</li>`
+        // "" 안에 는 작은 '' 넣어야함
+      }
+
+      // setInterval(function () {
+      //   rpsList[0].style.display = "none";
+      //   rpsList[1].style.display = "none";
+      //   rpsList[2].style.display = "none";
+      //   rpsList[randomChoice(0, 3)].style.display = "block";
+      // }, 100); //
+      //===
+      // setInterval(rancomchoice, 100); // 연속적으로  randim
+      let idx = setInterval(rancomchoice, 100); // idx라고 변수로 지정값
+      const selectedNum = Math.floor(random); //0,1,2만 나옴
+      const playerList = document.querySelectorAll(".player li");
+      let count = 0;
+      playerList.forEach(function (item, idex) {
+        item.addEventListener("click", function () {
+          const choice = idex;
+          const selectedNum = random; //0,1,2만 나옴
+          rpsList[selectedNum].style.display = "block";
+
+          clearInterval(idx); //누를때마다 멈춘기위해 let이라는 전역변수를 사용
+          item.parentNode.classList.add("prevent");
+          // -> prevent안에 내용을 추가하면 작동 멈춤
+
+          count++;
+          console.log(count);
+          const idxx = setTimeout(function () {
+            idx = setInterval(rancomchoice, 100);
+            item.parentNode.classList.remove("prevent");
+          }, 2000);
+          // -> 2초 뒤에 인터벌 시작, prevent 내용 삭제
+          if (count >= 3) {
+            clearTimeout(idxx);
+          }
+
+          if (choice === selectedNum) {
+            // result.textContent += "비김";
+            appendItem("draw", "draw");
+          } else if (
+            (choice === 0 && selectedNum === 2) ||
+            (choice === 1 && selectedNum === 0) ||
+            (choice === 2 && selectedNum === 1)
+          ) {
+            //&& 논리의 곱
+            // result.textContent += "이김";
+            appendItem("win", "win");
+          } else {
+            //&& 논리의 곱
+            // result.textContent += "짐";
+            appendItem("lose", "lose");
+          } // || 는 또는
+        });
+      });
+
+      // for (let i = 0; i < 3; i++) {
+      //   playerList[i].addEventListener("click", function () {
+      //     const choice = i;
+
+      //     const selectedNum = random; //0,1,2만 나옴
+      //     //console.log(selectedNum);
+      //     //console.log(playerchoise);
+      //     rpsList[selectedNum].style.display = "block";
+
+      //     console.log(choice);
+      //     clearInterval(idx);
+      //     setTimeout(() => {
+      //       setInterval(rancomchoice, 100);
+      //       clearInterval(idx);
+      //     }, 3000);
+
+      //     if (choice === selectedNum) {
+      //       result.textContent = "비김";
+      //     } else if (
+      //       (choice === 0 && selectedNum === 2) ||
+      //       (choice === 1 && selectedNum === 0) ||
+      //       (choice === 2 && selectedNum === 1)
+      //     ) {
+      //       //&& 논리의 곱
+      //       result.textContent = "이김";
+      //     } else {
+      //       //&& 논리의 곱
+      //       result.textContent = "짐";
+      //     } // || 는 또는
+      //   });
+      // }
+    </script>
+  </body>
+</html>

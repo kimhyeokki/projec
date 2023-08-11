@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="paper">
+      <ul class="lotto"></ul>
+    </div>
+    <script>
+      const paper = document.querySelector(".paper");
+      //<div class="paper"></div> 를 찾았음
+      for (j = 0; j < 5; j++) {
+        paper.innerHTML += `<ul class="lotto"></ul>`;
+        const num02 = Array(45)
+          .fill()
+          .map(function (item, index) {
+            return index + 1;
+          });
+        // num02 = [1,2,3,....45]
+        console.log(num02);
+        const lotto = [];
+        for (let i = 0; i < 6; i++) {
+          const selected = num02.splice(
+            Math.floor(Math.random() * num02.length),
+            1
+          );
+          lotto.push(selected.pop()); //selected 6개 번호 배열을 만든 것을
+          // pop()은 끝에서 뺌 ->push를 사용해 lotto라는 배열에 추가
+        }
+        lotto.sort(function (a, b) {
+          return a - b; //내림차순 정렬
+        });
+        //lotto라는 배열은 내림차순으로 정렬되어 있다
+        //ex) [3,10,23,34,44]
+        const _lotto = document.querySelector(`.lotto:nth-child(${j + 1})`);
+        // _lotto는 <ul class="lotto"></ul> 찾음
+        // lotto[item]의 배열 순차적으로 반복한다
+        lotto.forEach(function (item, index) {
+          _lotto.innerHTML += `<li>${item}</li>`;
+          // _lotto <ul class="lotto">"안에 내용을 넣는다"</ul>
+        });
+      }
+    </script>
+  </body>
+</html>

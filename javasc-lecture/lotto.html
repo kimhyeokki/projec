@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    1~45
+
+    <script>
+      // 1. 순서대로 나열한 다음에 6장 뽑기
+      //배열.splice(Math.floor(Math.random()*45),1)
+      const num01 = [];
+      for (let i = 1; i <= 45; i++) {
+        num01.push(i);
+      }
+      //console.log(num01);
+
+      for (let j = 0; j < 6; j++) {
+        const ran = Math.floor(Math.random() * num01.length);
+        console.log(num01.splice(ran, 1)[0]);
+      }
+      //2. 미리 섞어놓고 앞에서 6장 뽑기
+      const ran = Math.floor(Math.random() * num01.length);
+      let a = num01[ran];
+      let b = num01[ran];
+      let temp = b;
+      a = b;
+      b = temp;
+      console.log(a, "==", b);
+
+      const fruits = ["apple", "tomato", "cherry", "plum"];
+
+      let temps = fruits[1];
+      fruits[1] = fruits[3];
+      fruits[3] = temps;
+      console.log(fruits);
+
+      const num02 = [];
+      console.log(Math.floor(Math.random() * 45 + 1));
+      console.log(Math.floor(Math.random() * 45 + 1));
+      for (let i = 0; i <= 44; i++) {
+        num02[i] = Math.floor(Math.random() * 45 + 1);
+      }
+      console.log(num02);
+      //   for (let i = 0; i < 6; i++) {
+      //     console.log(Math.floor(Math.random() * 45) + 1);
+      //   }
+    </script>
+  </body>
+</html>

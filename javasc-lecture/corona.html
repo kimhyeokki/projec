@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/loading.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="lds-spinner">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <input text="date" id="datepicker" />
+    <ul class="coronalist"></ul>
+    <div>
+      <canvas class="myChart" id="myChart"></canvas>
+    </div>
+    <script>
+      const aa = [
+        { gubun: "서울" },
+        { gubun: "인천" },
+        { gubun: "경기" },
+        { gubun: "제주" },
+        { gubun: "전북" },
+        { gubun: "강원" },
+      ];
+      aa.sort(function (a, b) {
+        if (a.gubun > b.gubun) {
+          return 1;
+        } else if (a.gubun < b.gubun) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+      const bb = [...aa];
+      console.log(bb);
+      console.log(aa);
+
+      //------------------------------문자 순차서열-----------------------------------------//
+      const ctx = document.querySelector("#myChart");
+
+      //   new Chart(ctx, {
+      //     type: "bar",
+      //     data: {
+      //       labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+      //       datasets: [
+      //         {
+      //           label: "# of Votes",
+      //           data: [12, 19, 3, 5, 2, 3],
+      //           borderWidth: 1,
+      //         },
+      //       ],
+      //     },
+      //     options: {
+      //       scales: {
+      //         y: {
+      //           beginAtZero: true,
+      //         },
+      //       },
+      //     },
+      //   });
+      //--------------------------------차트 함수------------------------------------------//
+      const pickedDate = document.querySelector("#datepicker");
+      const picker = new easepick.create({
+        element: pickedDate,
+        css: [
+          "https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.css",
+        ],
+        lang: "ko-KR",
+        format: "YYYY-MM-DD",
+        zIndex: 10,
+        setup(picker) {
+          picker.on("select", function (e) {
+            //console.log(e);
+            coronalist.innerHTML = "";
+            console.log(pickedDate.value);
+            logCorona(pickedDate.value);
+          });
+        },
+      });
+
+      const loadingBar = document.querySelector(".lds-spinner");
+      loadingBar.style.display = "none";
+      const coronalist = document.querySelector(".coronalist");
+      let chart = null;
+      function logCorona(pickedDate) {
+        loadingBar.style.display = "block";
+        const result = fetch(
+          `https://apis.data.go.kr/1352000/ODMS_COVID_04/callCovid04Api?serviceKey=mZRGE%2BySu7j0ax6bx5VIzTyNc5DD0ZiPGdBE14KbyAhuTmi97eWkcvdm7GzIx4pNvHC5Alne5fdMeJq80ShhZw%3D%3D&pageNo=1&numOfRows=500&apiType=JSON&std_day=${pickedDate}`
+        )
+          .then(function (response) {
+            //console.log(response);
+            return response.json();
+          })
+          .then(function (result) {
+            //---------------------------------------------------------------------------------//
+
+            const myResult = [...result.items];
+            console.log(myResult);
+            myResult.sort(function (a, b) {
+              if (a.gubun > b.gubun) {
+                return 1;
+              } else if (a.gubun < b.gubun) {
+                return -1;
+              } else {
+                return 0;
+              }
+            });
+            //----------------------------구분-순차배열----------------------------------------//
+            const city = [];
+            const datas = [];
+            myResult.forEach(function (item) {
+              city.push(item.gubun);
+              datas.push(item.incDec);
+            });
+
+            if (chart !== null) {
+              chart.destroy();
+            }
+
+            chart = new Chart(ctx, {
+              type: "line",
+              data: {
+                labels: city,
+                datasets: [
+                  {
+                    label: "발생한 수",
+                    data: datas,
+                    fill: false,
+                    tension: 0.1,
+                  },
+                ],
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: false,
+                  },
+                },
+              },
+            });
+            //-----------------------------------차트함수-------------------------------------------------//
+            loadingBar.style.display = "none";
+            // myResult.forEach(function (item) {
+            //   coronalist.innerHTML += `<li><p>${item.gubun}</p><p>${item.incDec}</p></li>`;
+            // });
+          })
+          .catch(function (error) {
+            console.log("error");
+            alert("서버 오류입니다.");
+            loadingBar.style.display = "none";
+          })
+          .finally(function () {
+            console.log("나는 무조건 실행");
+          });
+      } //오류가 나도 실행된다
+      //fetch 함수는 서버를 가져오는 함수이고,
+      //response는 응답하는 것 무엇으로 어떤 타입으로
+      //result 결과 값을 나타내는 함수를 사용
+      //경고창 함수 alert
+      //finally는 무조건 실행한다
+
+      //logCorona("2021-08-09");
+    </script>
+  </body>
+</html>

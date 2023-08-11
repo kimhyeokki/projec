@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/bml.css" />
+  </head>
+  <body>
+    <input type="text" class="height" placeholder="키(cm)를 입력하시오" />
+    <input type="text" class="weight" placeholder="몸무게(kg)를 입력하시오" />
+    <button class="btn">결과 보기</button>
+    <div class="result"></div>
+  </body>
+  <script>
+    const btn = document.querySelector(".btn");
+    const height = document.querySelector(".height");
+    const weight = document.querySelector(".weight");
+    const result = document.querySelector(".result");
+    btn.addEventListener("click", function () {
+      console.log(height.value);
+      console.log(weight.value); // body에서 입력된 값을 가져오기 위해
+      if (height.value === "") {
+        //"" 공백일때
+        alert("키를 입력하시오"); //알림창
+        height.focus();
+        return;
+      }
+      if (weight.value === "") {
+        //"" 공백일때
+        alert("몸무게를 입력하시오");
+        weight.focus();
+        return;
+      }
+      const playerheight = height.value / 100;
+      const playerweight = weight.value;
+      const bmi = playerweight / playerheight ** 2; // **제곱의 연산
+
+      console.log(bmi);
+      if (bmi >= 25) {
+        console.log("비만");
+        result.textContent = "비만";
+      } else if (bmi > 18.5) {
+        console.log("정상");
+        result.textContent = "정상";
+      } else {
+        console.log("저체중");
+        result.textContent = "저체중";
+      }
+    });
+
+    let a = 10;
+    if (a > 5) {
+      console.log("5보다 큽니다.");
+    } else {
+      console.log("5보다 작습니다.");
+    }
+    // 삼항연산자
+    const b = a > 5 ? "big" : a > 3 ? "medium" : "small";
+    console.log(b);
+    // 조건문 ? if() : else
+    const min = "aple";
+    switch (min) {
+      case "apple":
+      case "aple":
+      case "aplle":
+        console.log("apple");
+        break;
+      case "banana":
+        console.log("banana");
+        break;
+      case "cherry":
+        console.log("cherry");
+        break;
+      default: //else의 역할
+        console.log("충족되지 않음");
+        break;
+    }
+    //break 를 만나면 중괄호를 빠져나온다
+    const num01 = 20;
+    switch (num01 > 10) {
+      case true:
+        console.log("num01은 10보다 큽니다");
+        break;
+
+      default:
+        break;
+    }
+    // case 뒤에는 조건이 들어오면 안됨
+
+    const price = prompt("음료수를 골라 주세요 콜라/사이다/환타", "");
+    switch (price) {
+      case "콜라":
+      case "콜":
+        console.log("콜라: 2000원");
+        break;
+      case "사이다":
+        console.log("사이다 : 1700원");
+        break;
+      case "환타":
+        console.log("환타 :1900원");
+        break;
+      default:
+        console.log("해당 음료는 없습니다");
+        break;
+    }
+
+    //swtich
+    const earth = prompt("숫자를 입력하시면 행성을 알려드립니다 (1~8)", "");
+    switch (earth) {
+      case "1":
+      case "일":
+        console.log("수성");
+        break;
+      case "2":
+      case "이":
+        console.log("금성");
+        break;
+      case "3":
+        console.log("지구");
+        break;
+      case "4":
+        console.log("화성");
+        break;
+      case "5":
+        console.log("목성");
+        break;
+      case "6":
+        console.log("토성");
+        break;
+      case "7":
+        console.log("천왕성");
+        break;
+      case "8":
+        console.log("해왕성");
+        break;
+      default:
+        console.log("해당되는 값이 없습니다");
+        break;
+    }
+    const rer = parseInt(earth); //string을 num으로 변환
+
+    console.log(rer);
+  </script>
+</html>

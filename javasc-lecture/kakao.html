@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"
+    />
+  </head>
+  <body>
+    <input
+      type="text"
+      placeholder="검색할 이미지를 입력하시오"
+      class="gumsaek"
+    />
+    <button class="btn">검색결과</button>
+    <div class="searchResult">
+      <ul class="thumbList"></ul>
+    </div>
+    <script>
+      const thumbList = document.querySelector(".thumbList");
+      const gumsaek = document.querySelector(".gumsaek");
+      const btn = document.querySelector(".btn");
+
+      btn.addEventListener("click", function () {
+        console.log(gumsaek.value);
+        const myGumsaek = gumsaek.value;
+        if (myGumsaek === "") {
+          alert("글자를 채우세요");
+          return;
+        }
+        imageserach(myGumsaek);
+      });
+      gumsaek.addEventListener("keyup", function (e) {
+        //const myGumsaek = gumsaek.value;
+        //console.log(e);
+        if (e.keyCode === 13) {
+          imageserach(gumsaek.value);
+        }
+      });
+      function imageserach(serach) {
+        thumbList.innerHTML = "";
+        fetch(`https://dapi.kakao.com/v2/search/vclip?query=${serach}`, {
+          headers: {
+            Authorization: "KakaoAK ffbdea517507bb8796fada73af11ebbe",
+          },
+        })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (result) {
+            console.log(result);
+            const imagesList = [...result.documents];
+            imagesList.forEach(function (item, index) {
+              thumbList.innerHTML += `<li><a href="${item.url}" data-fancybox="gallery" data-caption="${item.title}"><img src="${item.thumbnail}" alt=""><a></li>`;
+            });
+          });
+      }
+      Fancybox.bind("[data-fancybox]", {
+        // Your custom options
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script src="./hangul-tools.js"></script>
+  <body>
+    <!-- <ul>
+      <li>기러기</li>
+    </ul> -->
+    <div class="last-word">선생님</div>
+    <input type="text" class="word" value="" />
+    <script>
+      const animals = ["cat", "dog", "lion", "tiger"];
+      const test = "cat";
+      for (let i = 0; i < 4; i++) {
+        if (animals[i] === test) {
+          console.log("중복");
+        } else {
+          console.log("X");
+        }
+      }
+      animals.forEach(function (item) {
+        if (item === test) {
+          console.log(true);
+        }
+      });
+      animals.includes("cat"); // 순회해서 입력한 값의 같은지 확인해서 true, false로 구분해줌
+      //   ------------------------------------------------------------------------------------  //
+      async function trueorfasle(search) {
+        //async -> await
+        const response = await fetch(
+          `https://opendict.korean.go.kr/api/search?key=7F859F745356588C5E61605EBFB27DE3&q=${search}&req_type=json`
+        );
+        const result = await response.json();
+        //   .then(function (response) {
+        //     return response.json();
+        //   })
+        //   .then(function (result) {
+        //     if (result.channel.total > 0) {
+        //       console.log("true");
+        //       return true;
+        //     } else {
+        //       console.log("falses");
+        //       return false;
+        //     }
+        //   });
+      }
+      const isresult = trueorfasle("안녕");
+
+      trueorfasle("안녕");
+      const txt01 =
+        "기술㈜한화/건설은 건축, 토목, 플랜트 등 다양한 건설분야의 시공 경험과 첨단 기술력, 광범위한 네트워크를 보유한 글로벌 건설회사입니다. 목표로 대규모 복합개발사업과 친환경 에너지 사업을 이끄는 선도기업으로 성장을 거듭하고 있습니다.";
+      const txt = "선생님";
+      console.log(txt.length); //길이 확인
+      txt.charAt(0); //문자의 첫번째 문을 나타내준다. / 문자의 한자리 문자를 확인해줌 charAt
+      console.log(txt.charAt(txt.length - 1)); //문자의 끝자를 확인해준다
+      console.log(txt.concat("가 우대 받는 사회")); //문자를 연결해서 새로운 문자열을 만든다 ex) 기술자가 우대 받는 사회
+      console.log(txt01.substring(2, 6)); // 배열의 3번째부터 6이전 까지
+      console.log(txt.split(" "));
+      const word = document.querySelector(".word");
+      const lastword = document.querySelector(".last-word");
+      const wordList = ["선생님"];
+      word.addEventListener("keyup", function (e) {
+        if (e.keyCode === 13) {
+          // enter 키를 입력하면 입력값 나타나게 해준다
+          //console.log(word.value);
+          const inputWord = word.value;
+          //세글자만 입력가능하게
+
+          if (wordList.includes(inputWord)) {
+            word.value = "";
+            return;
+          }
+          //----------------------중복을 찾아준다-----------------------------------//
+          if (inputWord.length !== 3 && inputWord.length !== 2) {
+            word.value = "";
+            return;
+          }
+          //----------------------------글자수 제한------------------------------------------//
+          if (
+            HanTools.dueum(
+              lastword.textContent.charAt(lastword.textContent.length - 1)
+            ) === inputWord.charAt(0)
+          ) {
+            fetch(
+              `https://opendict.korean.go.kr/api/search?key=7F859F745356588C5E61605EBFB27DE3&q=${inputWord}&req_type=json`
+            )
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (result) {
+                const itemList = [...result.channel.item]; //itemList 에 result.channe.item 복사
+                const dictionary = itemList.map(function (item) {
+                  //map()주어진 함수를 호출한 결과를 모아 새로운 배열을 반환
+                  return item.word.replace(/\-|\^/g, "");
+                });
+                if (dictionary.includes(inputWord)) {
+                  // includes 배열이 특정 요소를 포함하고 있는지 판별 true or false
+                  lastword.textContent = inputWord;
+                  wordList.push(inputWord);
+                  console.log(wordList);
+                  word.value = "";
+                  console.log("맞음");
+                } else {
+                  console.log("틀림");
+                  word.value = "";
+                }
+                // if (result.channel.total > 0) {
+                //   lastword.textContent = inputWord;
+                //   wordList.push(inputWord);
+                //   console.log(wordList);
+
+                //   word.value = "";
+                // } else {
+                //   console.log("틀림");
+                //   word.value = "";
+                // }
+              });
+          }
+        }
+      });
+
+      HanTools.dueum("임금님");
+    </script>
+  </body>
+</html>

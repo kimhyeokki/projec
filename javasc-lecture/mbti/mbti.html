@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="num">number</div>
+    <div class="question-box">
+      <div class="title">문제의 타이틀을 뿌리는 곳</div>
+      <div class="btn">
+        <button class="btn-A">A.첫번째 목록</button>
+        <button class="btn-B">B.두번쨰 목록</button>
+      </div>
+    </div>
+    <div class="result-box"></div>
+    <script>
+      const num = document.querySelector(".num");
+      const btnA = document.querySelector(".btn-A");
+      const btnB = document.querySelector(".btn-B");
+      const title = document.querySelector(".title");
+      const resultBox = document.querySelector(".result-box");
+      let count = 0;
+      let mbtiresult = [];
+      let score = [
+        { id: "EI", nums: 0 },
+        { id: "SN", nums: 0 },
+        { id: "TF", nums: 0 },
+        { id: "JP", nums: 0 },
+      ];
+      fetch(`mbti.json`)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (result) {
+          //=result["info"].iq
+          console.log(result.question);
+          mbtiresult = [...result.question];
+
+          num.textContent = mbtiresult[0].id;
+          title.textContent = mbtiresult[0].title;
+          btnA.textContent = mbtiresult[0].answera;
+          btnB.textContent = mbtiresult[0].answerb;
+          btnA.addEventListener("click", function () {
+            clickprocess(1);
+          });
+          btnB.addEventListener("click", function () {
+            clickprocess(0);
+          });
+          //   mbtiresult.forEach(function (item) {
+          //     num.innerHTML = item.id;
+          //   });
+        });
+      function clickprocess(point) {
+        if (count < mbtiresult.length - 1) {
+          num.textContent = mbtiresult[count + 1].id;
+          title.textContent = mbtiresult[count + 1].title;
+          btnA.textContent = mbtiresult[count + 1].answera;
+          btnB.textContent = mbtiresult[count + 1].answerb;
+          const newscore = score.map(function (item, index) {
+            if (item.id === mbtiresult[count].type) {
+              // console.log(mbtiresult[count].id);
+              return { id: item.id, nums: item.nums + point };
+            } else {
+              return item;
+            }
+          });
+          score = newscore;
+          console.log(score);
+          count++;
+        } else {
+          console.log("끝");
+          const myMbti = score.reduce(function (acc, current) {
+            if (current.nums >= 2) {
+              return acc + current.id.charAt(0);
+            } else {
+              return acc + current.id.charAt(1);
+            }
+          }, ""); //acc="" 으로 변환
+          console.log(myMbti);
+          if (myMbti === "ESTJ") {
+            resultBox.innerHTML = `<img src="http://www.chemicalnews.co.kr/news/photo/202106/3636_10174_4958.jpg">`;
+          }
+        }
+      }
+
+      const testArray = [1, 2, 3, 4, 5];
+      const total = testArray.reduce(function (acc, current) {
+        return acc + current;
+      }, 10); //10부터 축적한다. 없으면 배열의 처음부분부터 시작한다.
+      //object에선 반드시 초기값을 부여한다
+      console.log(total);
+    </script>
+  </body>
+</html>

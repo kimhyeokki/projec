@@ -1,0 +1,38 @@
+li {
+  list-style: none;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+.lotto {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  li {
+    width: 30px;
+    height: 30px;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    &.yellow {
+      background-color: yellow;
+    }
+    &.blue {
+      background-color: blue;
+    }
+    &.red {
+      background-color: red;
+    }
+    &.gray {
+      background-color: gray;
+    }
+    &.green {
+      background-color: green;
+    }
+  }
+}

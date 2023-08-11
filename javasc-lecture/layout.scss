@@ -1,0 +1,39 @@
+.computer {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+}
+.player {
+  margin-top: 100px;
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+  transform: scale(0.5);
+  &.prevent {
+    pointer-events: none; //pionter 이벤트 기능 상실
+  }
+}
+div {
+  display: flex;
+  justify-content: center;
+  ul {
+    display: flex;
+    gap: 50px;
+    color: #fff;
+    li {
+      &.win {
+        background-color: blue;
+      }
+      &.draw {
+        background-color: #ccc;
+      }
+      &.lose {
+        background-color: red;
+      }
+    }
+  }
+}
+li {
+  list-style: none;
+}
