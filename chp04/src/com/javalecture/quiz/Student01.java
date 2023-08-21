@@ -23,7 +23,7 @@ public class Student01 {
   }
     
     String info(){
-        return name;
+        return name +","+ ban +","+ no +","+ kor +","+ eng +","+ math +","+ sum +","+ avg;
     }
 
     public static void main(String[] args) {
