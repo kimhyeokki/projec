@@ -3,7 +3,7 @@ import java.util.Scanner;
 //입력한 숫자중에 제일 큰 숫자 출력
 public class Quiz01 {
     public static void main(String[] args) {
-        ArrayList<Integer> arrayList = new ArrayList();
+        ArrayList<Integer> arrayList = new ArrayList<>();
         Scanner sc = new Scanner(System.in);
         while(true){
         int a1 = sc.nextInt();

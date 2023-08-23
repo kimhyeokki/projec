@@ -6,12 +6,12 @@ public class IteratorTest {
     public static void main(String[] args) {
         String strArray[] = {"둘리","희동이","도우너"};
         Integer array[] ={1,2,3,4,5};  // 기본 타입은 못들어갑니다...ex) int..-> Integer
-        ArrayList<String> strarrayList = new ArrayList(Arrays.asList(strArray));  //==intarrayList.add(11....51);
+        ArrayList<String> strarrayList = new ArrayList<>(Arrays.asList(strArray));  //==intarrayList.add(11....51);
         System.out.println(strarrayList.get(0)); 
         System.out.println(strarrayList.get(1)); 
         System.out.println(strarrayList.get(2)); 
 
-        ArrayList<Integer> intarrayList = new ArrayList(Arrays.asList(array));  //==intarrayList.add(11....51);
+        ArrayList<Integer> intarrayList = new ArrayList<>(Arrays.asList(array));  //==intarrayList.add(11....51);
         System.out.println(intarrayList.get(0)); 
         System.out.println(intarrayList.get(1)); 
         System.out.println(intarrayList.get(2)); 

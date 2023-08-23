@@ -55,20 +55,20 @@ public class StudentTest {
         stinfo.add(new Student02("장성호", "java", "01", 3.0));
         stinfo.add(new Student02("장동건", "c#", "02", 2.5));
         stinfo.add(new Student02("김혁기", "python", "03", 4.3));
+        Iterator<Student02> it = stinfo.iterator();  // 반복을 위해
+        while(it.hasNext()){
+            System.out.println(it.next());
+        }
         while(true){
             String name01 = scanner.nextLine();
             if(name01.equals("그만"))
             break;
-            if(name01.equals(stinfo.get(0).getName())){
-                System.out.println(stinfo.get(0));
+            for(int i =0;i<stinfo.size();i++){
+                if(name01.equals(stinfo.get(i).getName())){
+                    System.out.println(stinfo.get(i));
+                }
             }
-            else if(name01.equals(stinfo.get(1).getName())){
-                System.out.println(stinfo.get(1));
-            } else if(name01.equals(stinfo.get(2).getName())){
-                System.out.println(stinfo.get(2));
-            }else{
                 System.out.println("없는 사람입니다.");
-            }
         }
 
         HashMap<String,Student02> studentList = new HashMap<>();

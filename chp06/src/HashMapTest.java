@@ -6,7 +6,7 @@ import java.util.LinkedHashMap;
 
 public class HashMapTest {
     public static void main(String[] args) {
-        HashMap<String,String> map = new HashMap();
+        HashMap<String,String> map = new HashMap<>();
         map.put("apple", "사과");
         map.put("plum", "자두");
         map.put("peach", "복숭아");

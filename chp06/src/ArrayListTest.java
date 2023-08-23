@@ -23,7 +23,7 @@ public class ArrayListTest {
         System.out.println(arrayList.isEmpty()); //빈공간 참인지, 거짓인지 확인
         System.out.println(arrayList.contains("둘리"));  //해당 요소가 있는지 확인
 
-        ArrayList<Integer> intarrayList = new ArrayList(Arrays.asList(11,21,31,41,51));  //==intarrayList.add(11....51);
+        ArrayList<Integer> intarrayList = new ArrayList<>(Arrays.asList(11,21,31,41,51));  //==intarrayList.add(11....51);
         System.out.println(intarrayList.get(0)); 
 
         ArrayList <String> strArrayList = new ArrayList<>(Arrays.asList("고길동","홍길동","둘리","미켈란젤로"));
