@@ -5,7 +5,7 @@ public class GameApp extends JFrame {
         setTitle("shooting Game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setContentPane(new GamePanel());
-        this.pack(); //
+        this.pack(); 
         setVisible(true);
     }
     public static void main(String[] args) {
