@@ -1,0 +1,7 @@
+//서버,포트,TCP/IP,Socket
+
+//SeverSocket(port)
+//Socket(host,port)
+
+//BufferedReader 
+//BufferedWriter
