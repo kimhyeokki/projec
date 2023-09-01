@@ -1,4 +1,6 @@
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -12,8 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable{
-    private Image ship = new ImageIcon("image/rocket.png").getImage();
+    private Image ship = new ImageIcon("image/spaceship.png").getImage();
    // private Image alien = new ImageIcon("image/monster.png").getImage();
+   private Image space = new ImageIcon("image/space.jpg").getImage();
     Monster monster= new Monster("image/monster.png", 300,-50, 10);
     private List<Monster> monsterList = new ArrayList<>();
     private int posX = 400;
@@ -33,6 +36,9 @@ public class GamePanel extends JPanel implements Runnable{
     int sec =0;
     int min =0;
      //--------------------------------------//
+     private boolean isPressed;
+     private int bulletCount=0;
+     private String monsterimgList[] ={"monster.png","monster02.png","monster03.png"};
     GamePanel(){
         this.setPreferredSize(new Dimension(1280, 720));
         th = new Thread(this);
@@ -53,7 +59,7 @@ public class GamePanel extends JPanel implements Runnable{
                     isDown=true;
                 }  
                 if(e.getKeyCode() ==KeyEvent.VK_SPACE){
-                    isSpace=true;
+                    isPressed=true;
                 }
             }
             public void keyReleased(KeyEvent e) {
@@ -66,11 +72,21 @@ public class GamePanel extends JPanel implements Runnable{
                 }else if(e.getKeyCode() ==KeyEvent.VK_DOWN){
                     isDown=false;
                 }else if(e.getKeyCode() ==KeyEvent.VK_SPACE){
-                    Bullet bullet = new Bullet("image/bullet.png", posX+32-8, posY , 10);
-                    bulletList.add(bullet);  //bullet 미사일 생성
+                    isPressed=false;
                 }
             }
         });
+    }
+    public void bullet(){
+        if(isPressed){
+            if(bulletCount >3){
+                    Bullet bullet = new Bullet("image/bullet.png", posX+32-8, posY , 10);
+                    bulletList.add(bullet);  //bullet 미사일 생성
+                    bulletCount =0;
+            } else{
+                bulletCount++;
+            }
+        }
     }
     public void check(){
     for(int i=0;i<bulletList.size();i++){
@@ -120,6 +136,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
+        g.drawImage(space, 0, 0, null);
         g.drawImage(ship, posX,posY,null);
        for(int i=0;i<monsterList.size();i++){
         Monster monster = monsterList.get(i);
@@ -133,12 +150,15 @@ public class GamePanel extends JPanel implements Runnable{
         Boom boom = boomList.get(i);
         boom.draw(g);
        }
+       g.setColor(Color.RED);
+       g.setFont(new Font("맑은 고딕",Font.BOLD, 25));
         g.drawString("Score :"+nums, 20, 20);  //score 점수 확인
     }
 
     public void makeMonster(){ //몬스터 생성 메서드
+        String img = monsterimgList[(int)(Math.random()*3)];
         if(Math.random()<0.05){
-      Monster monster = new Monster("image/monster.png",(int)(Math.random()*1200),-50,(int)(Math.random()*2+2));
+      Monster monster = new Monster("image/"+img,(int)(Math.random()*1200),-50,(int)(Math.random()*2+2));
         monsterList.add(monster);
         }
     }
@@ -212,6 +232,7 @@ public class GamePanel extends JPanel implements Runnable{
             move();
             makeMonster();
             monsterMove();
+            bullet();
             bulletMove();
             removeMonster();
             removeBullet();
