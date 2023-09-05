@@ -130,3 +130,18 @@ SELECT *FROM  EMP WHERE ENAME LIKE '____S'; --글자 수가 5개이고 끝이 S�
 -- LIKE에서 %,_ 이 있는데 _는 자릿수 한개를 갖는다. %는 글자 수 제한없음.
 
 SELECT  *FROM  EMP WHERE  ENAME  LIKE '__A%';
+
+SELECT  *FROM  emp WHERE SAL LIKE '1%'; --월급이 1로 시작하는 사람들
+
+--집합연산자 합집합 교집합,차집합
+SELECT empno,ename,sal,deptno FROM EMP WHERE DEPTNO =10 UNION all
+SELECT empno,ename,sal,deptno FROM EMP WHERE DEPTNO =20; 
+--UNION 은 합집합 중복허용하지 않음 ALL은 중복을 허용함
+
+SELECT empno,ename,sal,deptno FROM EMP MINUS
+SELECT empno,ename,sal,deptno FROM EMP WHERE DEPTNO =20;
+--MINUS 은 차집합이고 
+
+SELECT empno,ename,sal,deptno FROM EMP INTERSECT
+SELECT empno,ename,sal,deptno FROM EMP WHERE DEPTNO =20;
+--INTERSECT 교집합 
