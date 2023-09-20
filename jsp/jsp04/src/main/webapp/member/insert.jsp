@@ -1,17 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Insert title here</title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css" />
-    <script src="../js/bootstrap.bundle.min.js"></script>
-    <script src="../js/jquery-3.7.1.min.js"></script>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  </head>
-  <body>
+<%@ include file="../include/header.jsp" %>
     <div class="container">
-      <form action="insert-member-process.jsp" method="post" class="" name="member">
+      <form action="insert-member-process.jsp" method="post" class="" 
+      name="member" id="joinform">  <!-- <form  -->
         <div class="row d-flex justify-content-center mt-5">
           <div class="col-6">
             <div class="mb-3">
@@ -95,6 +86,7 @@
         <div class="mt-5 mb-5 d-flex justify-content-center">
           <div class="">
             <button type="submit" class="btn btn-primary" id="btnSubmit">회원가입</button>
+            <button type="submit" class="btn btn-primary" id="btnSubmitAjax">Ajax회원가입</button>
             <button type="reset" class="btn btn-secondary">취소</button>
           </div>
         </div>
@@ -102,6 +94,24 @@
     </div>
 
     <script> 
+    $("#btnSubmitAjax").on("click",function(){
+    	$.ajax({
+    		url:"../member/insert-member-process.jsp",
+    		data: $("#joinform").serialize(),// form 안에 있는 모든 데이터 값을 한번에 보낼 수 있는 장점이 있다.
+    		         //serialize()중요함       //무조건 알아 두자!! 
+    		success:function(response) {
+    			alert("가입하셨습니다");
+    			$(location).attr("href","../member/login.jsp"); //location을 이용한 주소이동
+    			// == location.href="../member/login.jsp"
+    			
+    		},
+    		fail:function(){
+    			alert("서버오류입니다");
+    			history.back();
+    		}
+    	})
+    	return false;
+    })
      // 우편주소 
       function postcode() {
         new daum.Postcode({
@@ -199,5 +209,4 @@
     	  return false;
       });
     </script>
-  </body>
-</html>
+<%@ include file="../include/footer.jsp" %>

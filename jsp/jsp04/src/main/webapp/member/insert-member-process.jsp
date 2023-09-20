@@ -1,3 +1,4 @@
+<%@page import="util.ScriptWriter"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="common.ConnectionDB"%>
 <%@page import="java.sql.Connection"%>
@@ -33,12 +34,12 @@ pstmt.setString(8,tel);
 int result = pstmt.executeUpdate();
 if(result>0) {
 System.out.println("입력 되었음");
-out.println("<script>");
-out.println("alert('가입되었습니다.');");
-out.println("history.back();");
-out.println("</script>");
+//response.sendRedirect("../index/index.jsp");
+ScriptWriter.alertAndNext(response, "회원가입되었습니다.", "../index/index.jsp");
 } else  {
 System.out.println("입력 오류");
+//response.sendRedirect("../member/insert.jsp");
+ScriptWriter.alertAndBack(response, "다시입력해주세요");
 } 
 conn.close();
 
