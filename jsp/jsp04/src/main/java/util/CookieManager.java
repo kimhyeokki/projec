@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class CookieManager {
 	
-	public void createCookie(HttpServletResponse response,
+	public static void createCookie(HttpServletResponse response,
 			String cookieName, String cookieValue,int time)
 	{
 		Cookie cookie = new Cookie(cookieName,cookieValue);
@@ -15,12 +15,12 @@ public class CookieManager {
 	    cookie.setMaxAge(time);
 	    response.addCookie(cookie);
 	}
-	public void deleteCookie(HttpServletResponse response,
+	public static void deleteCookie(HttpServletResponse response,
 			String cookieName)
 	{
 		createCookie(response, cookieName, "", 0);
 	}
-	public String readCookie(HttpServletRequest request, String cookieName) {
+	public static String readCookie(HttpServletRequest request, String cookieName) {
 		Cookie cookies [] = request.getCookies();
 		String cookieValue = "";
 		if(cookies!=null) {
