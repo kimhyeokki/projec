@@ -7,6 +7,7 @@ public interface MemberService {
 	int insertMember(Member member);
 	int deleteMember(String userID, String userPW);
 	int deleteMember(Member member);
-	ResultSet loginMember(String userID, String userPW);
+	Member loginMember(String userID, String userPW);
 	int updateMember(Member member);
+	Member infoMember(String userID);
 }

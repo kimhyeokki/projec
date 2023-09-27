@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-    	String loggedID = (String)session.getAttribute("loggedID");
-    	String loggedName = (String)session.getAttribute("loggedName");
-    	//session을 이용해서 로그인 시 ID, NAME 저장
-    %>  
+    <%@taglib uri="jakarta.tags.core" prefix="c" %>
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,25 +17,28 @@
 <body>
 <div class="container">
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-      <a href="../index/index.jsp" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+      <a href="../index/index" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
         <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
         <span class="fs-4">Simple header</span>
       </a>
-		<%if(loggedName==null){ %>
+      <c:choose>
+      <c:when test="${sessionScope.loggedID ==null }">	
       <ul class="nav nav-pills">
-        <li class="nav-item"><a href="../index/index.jsp" class="nav-link active" aria-current="page">MY Home</a></li>
-        <li class="nav-item"><a href="../member/insert.jsp" class="nav-link">회원가입</a></li>
-        <li class="nav-item"><a href="../member/login.jsp" class="nav-link">로그인</a></li>
-        <li class="nav-item"><a href="../member/login.jsp" class="nav-link">게시판</a></li>
+        <li class="nav-item"><a href="../index/index" class="nav-link active" aria-current="page">MY Home</a></li>
+        <li class="nav-item"><a href="../member/insert" class="nav-link">회원가입</a></li>
+        <li class="nav-item"><a href="../member/Login" class="nav-link">로그인</a></li>
+        <li class="nav-item"><a href="../member/Login" class="nav-link">게시판</a></li>
       </ul>
-      <%} else{ %>
+     </c:when>
+     <c:otherwise>
           <ul class="nav nav-pills">
-        <li class="nav-item"><a href="../index/index.jsp" class="nav-link active" aria-current="page">MY Home</a></li>
-        <li class="nav-item"><a href="../member/logout.jsp" class="nav-link">로그아웃</a></li>
-        <li class="nav-item"><a href="../member/info.jsp?userID=<%= loggedID%>" class="nav-link"><%=loggedName %></a></li>
-        <li class="nav-item"><a href="../board/list.jsp" class="nav-link">게시판</a></li>
+        <li class="nav-item"><a href="../index/index" class="nav-link active" aria-current="page">MY Home</a></li>
+        <li class="nav-item"><a href="../member/logout" class="nav-link">로그아웃</a></li>
+        <li class="nav-item"><a href="../member/info?userID=${loggedID }" class="nav-link">${loggedName }</a></li>
+        <li class="nav-item"><a href="../board/list" class="nav-link">게시판</a></li>
       </ul>
-      <% }%>
+      </c:otherwise>
+      </c:choose>
     </header>
   </div>
   <!-- header end -->

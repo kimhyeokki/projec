@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
+
 <% 
 String userID = null;
 String isChecked ="";
@@ -22,7 +23,7 @@ if(cookies !=null){
     %>
     <div class="form-floating">
       <input type="text" name="userID" class="form-control" id="userID" 
-      placeholder="user id" value="<%=userID%>">
+      placeholder="user id" value="${cookie.cookieID.value }">
       <label for="userID">아이디</label>
     </div>
     <%}else{ %>
@@ -39,7 +40,7 @@ if(cookies !=null){
 
     <div class="form-check text-start my-3">
       <input class="form-check-input" name="check" 
-      type="checkbox" value="1" id="check" <%= isChecked%>> <!--input type=체크박스는 checked 설정되어 잇으면 디폴드값이 체크되어있음-->
+      type="checkbox" value="1" id="check" <c:if test="${not empty cookie.cookieID }">checked</c:if> > <!--input type=체크박스는 checked 설정되어 잇으면 디폴드값이 체크되어있음-->
       <label class="form-check-label" for="check">
         Remember me
       </label>
@@ -47,7 +48,7 @@ if(cookies !=null){
     <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
   </form>
     <div>
-  <a href="../member/insert.jsp" class="nav-link"><button class="btn btn-primary w-100 pu-2 mt-3" type="submit">회원가입</button></a>
+  <a href="../member/insert" class="nav-link"><button class="btn btn-primary w-100 pu-2 mt-3" type="submit">회원가입</button></a>
   </div>
    <p class="mt-5 mb-3 text-body-secondary">© 2017–2023</p>
 </div>

@@ -1,16 +1,26 @@
 package com.khk11.controller.member;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSessionBindingEvent;
+import jakarta.servlet.http.HttpSessionEvent;
+import jakarta.websocket.Session;
+
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Enumeration;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import com.khk11.dao.MemberDao;
 import com.khk11.dto.Member;
+import com.khk11.util.CookieManager;
 import com.khk11.util.ScriptWriter;
 
 /**
@@ -36,26 +46,28 @@ public class LoginProcess extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String userID = request.getParameter("userID");
+		String userPW = request.getParameter("userPW");
+		String check = request.getParameter("check"); 
+		
 		MemberDao memberDao = new MemberDao();
-		String userID =request.getParameter("userID");
-		String userPW =request.getParameter("userPW");
-		
-		Member loginMember = new Member();
-		loginMember.setUserID(userID);
-		loginMember.setUserPW(userPW);
-		
-		ResultSet rs = memberDao.loginMember(loginMember.getUserID(), loginMember.getUserPW());
-		try {
-			if(rs.next()) {
-				ScriptWriter.alertAndNext(response, "로그인 성공", "../index/index");
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Member loggedMember = memberDao.loginMember(userID, userPW);
+		if(loggedMember!=null) {
+			HttpSession session = request.getSession();
+			session.setAttribute("loggedID", loggedMember.getUserID());
+			session.setAttribute("loggedName", loggedMember.getUserName());
+			 if(check!=null){ 
+				 CookieManager.createCookie(response, "cookieID", userID, 60*60*24);
+				
+			 }else {
+				 CookieManager.deleteCookie(response, "cookieID");
+			 }
+			 response.sendRedirect("../index/index");
+		} else {
+			ScriptWriter.alertAndBack(response, "아이디 비번을 확인해주세요");
 		}
+		
+	
 	}
 
 }

@@ -57,7 +57,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Insert</servlet-name>
-    <url-pattern>/member/Insert</url-pattern>
+    <url-pattern>/member/insert</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -98,5 +98,105 @@
   <servlet-mapping>
     <servlet-name>LoginProcess</servlet-name>
     <url-pattern>/member/login-process</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Info</display-name>
+    <servlet-name>Info</servlet-name>
+    <servlet-class>com.khk11.controller.member.Info</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Info</servlet-name>
+    <url-pattern>/member/info</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Logout</display-name>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>com.khk11.controller.member.Logout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/member/logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Delete</display-name>
+    <servlet-name>Delete</servlet-name>
+    <servlet-class>com.khk11.controller.member.Delete</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Delete</servlet-name>
+    <url-pattern>/member/delete</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteProcess</display-name>
+    <servlet-name>DeleteProcess</servlet-name>
+    <servlet-class>com.khk11.controller.member.DeleteProcess</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteProcess</servlet-name>
+    <url-pattern>/member/delete-pro</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>IdCheck</display-name>
+    <servlet-name>IdCheck</servlet-name>
+    <servlet-class>com.khk11.controller.member.IdCheck</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>IdCheck</servlet-name>
+    <url-pattern>/member/id-check</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Edit</display-name>
+    <servlet-name>Edit</servlet-name>
+    <servlet-class>com.khk11.controller.member.Edit</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Edit</servlet-name>
+    <url-pattern>/member/info-edit</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditProcess</display-name>
+    <servlet-name>EditProcess</servlet-name>
+    <servlet-class>com.khk11.controller.member.EditProcess</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditProcess</servlet-name>
+    <url-pattern>/member/edit-pro</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EditMemberProcess</display-name>
+    <servlet-name>EditMemberProcess</servlet-name>
+    <servlet-class>com.khk11.controller.member.EditMemberProcess</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditMemberProcess</servlet-name>
+    <url-pattern>/member/edit-member-process</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>List</display-name>
+    <servlet-name>List</servlet-name>
+    <servlet-class>com.khk11.controller.board.List</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>List</servlet-name>
+    <url-pattern>/board/List</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Lsit</display-name>
+    <servlet-name>Lsit</servlet-name>
+    <servlet-class>com.khk11.controller.member.Lsit</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Lsit</servlet-name>
+    <url-pattern>/member/lsit</url-pattern>
   </servlet-mapping>
 </web-app>

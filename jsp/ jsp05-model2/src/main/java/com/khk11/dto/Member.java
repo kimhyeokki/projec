@@ -16,6 +16,7 @@ public class Member {
 	private String detailaddress;
 	private String email;
 	private String tel;
+	private String profile;
 	private String redate;
 	public int getNo() {
 		return no;
@@ -83,7 +84,7 @@ public class Member {
 		
 	}
 	public Member(int no, String userID, String userPW, String userName, int postcode, String address,
-			String detailaddress, String email, String tel, String redate) {
+			String detailaddress, String email, String tel, String profile  ,String redate) {
 		super();
 		this.no = no;
 		this.userID = userID;
@@ -94,7 +95,15 @@ public class Member {
 		this.detailaddress = detailaddress;
 		this.email = email;
 		this.tel = tel;
+		this.setProfile(profile);
 		this.redate = redate;
 	}
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+	
 	
 }

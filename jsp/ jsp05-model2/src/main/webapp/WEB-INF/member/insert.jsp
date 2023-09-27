@@ -4,7 +4,8 @@
     	<%-- <h1>${pageContext.request.contextPath }</h1>
     	<h1>${request.contextPath }</h1> --%>
       <form action="../member/insert-process" method="post" class="" 
-      name="member" id="joinform">  <!-- <form  -->
+      name="member" id="joinform" enctype="multipart/form-data">  <!-- <form  -->
+      								<!--방식은 post, 이미지나 파일을 받기 위해서 -->
         <div class="row d-flex justify-content-center mt-5">
           <div class="col-6">
             <div class="mb-3">
@@ -85,6 +86,15 @@
             </div>
           </div>
         </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-6">
+            <div class="mb-3">
+              <label for="profile" class="form-label">profile</label>
+              <input type="file" class="form-control" id="profile" placeholder="png,jpg"
+               name="profile" accept=".jpg,.png,.gif,.jpeg" />
+            </div>
+          </div>
+        </div>
         <div class="mt-5 mb-5 d-flex justify-content-center">
           <div class="">
             <button type="submit" class="btn btn-primary" id="btnSubmit">회원가입</button>
@@ -96,6 +106,7 @@
     </div>
 
     <script> 
+    	let isIDCheck=false;
     $("#btnSubmitAjax").on("click",function(){
     	$.ajax({
     		url:"../member/insert-member-process.jsp",
@@ -152,6 +163,9 @@
           $("#userPW02").val("");
           $("#userPW02").focus();
           return false;
+        } else if(!isIDCheck){
+        	 alert("아이디 중복 체크해주세요");
+        	 return false;
         }
       });
       $("#userPW02").on("keyup", function () {    //id는 # , class는 .
@@ -175,7 +189,7 @@
       //   });
       $("#btnIDCheck").on("click", function(){
     	  $.ajax({
-    		  url:"idcheck.jsp",
+    		  url:"../member/id-check",
     				  data:{userID:$("#userID").val()},
     				  //method:"get",
     				  success : function(data){
@@ -188,7 +202,8 @@
     						  const useID = confirm("쓸 수 있는 아이디입니다. 사용하시겠습니까?");
     						  //confirm() return boolean
     					  	if(useID){
-    					  		$("#userID").attr("readonly",true);
+    					  		$("#userID").attr("readonly",false);
+    					  		isIDCheck = true;
     					  						//readonly ,true 읽기전용, 수정불가
     					  						//readonly ,false 읽기전용, 수정가능
     					  	}

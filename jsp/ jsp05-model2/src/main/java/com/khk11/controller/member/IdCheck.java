@@ -1,4 +1,4 @@
-package com.khk11.controller.index;
+package com.khk11.controller.member;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -7,15 +7,23 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-//@WebServlet(urlPatterns ={"/","/index","/index/*"})  /,/index,/index/* mapping 여러개 할 수 있음
-public class Index extends HttpServlet {
+import com.google.gson.Gson;
+import com.khk11.dao.MemberDao;
+import com.khk11.dto.Member;
+
+/**
+ * Servlet implementation class IdCheck
+ */
+public class IdCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Index() {
+    public IdCheck() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -24,7 +32,15 @@ public class Index extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/index/index.jsp");
+		String userID = request.getParameter("userID");
+		MemberDao memberDao = new MemberDao();
+		int count = memberDao.idCheck(userID);
+		Gson gson = new Gson();
+		Map<String, Integer> map = new HashMap();
+		map.put("count", count);
+		String json = gson.toJson(map); //{"count":0,1}
+		request.setAttribute("json", json);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/member/id-check.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -32,8 +48,7 @@ public class Index extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	
 	}
 
 }

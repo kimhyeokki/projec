@@ -1,4 +1,4 @@
-package com.khk11.controller.index;
+package com.khk11.controller.member;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -7,15 +7,21 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.ResultSet;
 
-//@WebServlet(urlPatterns ={"/","/index","/index/*"})  /,/index,/index/* mapping 여러개 할 수 있음
-public class Index extends HttpServlet {
+import com.khk11.dao.MemberDao;
+import com.khk11.dto.Member;
+
+/**
+ * Servlet implementation class Lsit
+ */
+public class Lsit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Index() {
+    public Lsit() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -24,8 +30,16 @@ public class Index extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/index/index.jsp");
-		dispatcher.forward(request, response);
+		MemberDao memberDao = new MemberDao();
+		String strpage = request.getParameter("page");
+		Member listmember = memberDao.listmember(strpage);
+		if(listmember!=null) {
+			request.setAttribute("listmember", listmember);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/member/list.jsp");
+			dispatcher.forward(request, response);
+		}else {
+			
+		}
 	}
 
 	/**

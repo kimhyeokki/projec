@@ -1,4 +1,4 @@
-package com.khk11.controller.index;
+package com.khk11.controller.member;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -8,14 +8,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//@WebServlet(urlPatterns ={"/","/index","/index/*"})  /,/index,/index/* mapping 여러개 할 수 있음
-public class Index extends HttpServlet {
+/**
+ * Servlet implementation class EditProcess
+ */
+public class Edit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Index() {
+    public Edit() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -24,7 +26,7 @@ public class Index extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/index/index.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/member/info-edit.jsp");
 		dispatcher.forward(request, response);
 	}
 
