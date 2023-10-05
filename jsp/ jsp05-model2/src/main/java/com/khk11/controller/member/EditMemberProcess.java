@@ -54,12 +54,16 @@ public class EditMemberProcess extends HttpServlet {
 		}
 		String address = request.getParameter("address");
 		Part profile = request.getPart("profile");
-		
-		String uploadredirectory = "upload";
+		String uploadredirectory = "C:\\upload";
+		String realuploadPath =uploadredirectory;
+		//-------------------변경시 기존 이미지 제거 -----------------------//
+		Member loggedMember = (Member)session.getAttribute("loggedMember");
+		String preProfile = loggedMember.getProfile();
+		File file = new File(realuploadPath+File.separator+preProfile);
+		//----------------------------------------------------------//
 		String partHeader  = profile.getHeader("Content-disposition");
 		String fileArray[] = partHeader.split("filename=");
 		String originalName = fileArray[1].trim().replace("\"", "");
-		String realuploadPath = getServletContext().getRealPath(uploadredirectory);
 		if(!originalName.isEmpty()) {
 			profile.write(realuploadPath+File.separator+originalName);
 		}
@@ -84,6 +88,10 @@ public class EditMemberProcess extends HttpServlet {
 		int result =memberDao.updateMember(updatemember);
 		if(result>0) {
 			session.setAttribute("loggedName", userName); //세션값 변경해야함 
+			session.setAttribute("loggedMember", updatemember);
+			if(file.exists()) {
+				file.delete();
+			}
 			ScriptWriter.alertAndNext(response, "정보변경 완료", "../index/index");
 		}else {
 			ScriptWriter.alertAndBack(response, "서버 오류입니다.");

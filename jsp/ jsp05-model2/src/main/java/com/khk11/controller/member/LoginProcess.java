@@ -56,6 +56,7 @@ public class LoginProcess extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loggedID", loggedMember.getUserID());
 			session.setAttribute("loggedName", loggedMember.getUserName());
+			session.setAttribute("loggedMember", loggedMember);
 			 if(check!=null){ 
 				 CookieManager.createCookie(response, "cookieID", userID, 60*60*24);
 				

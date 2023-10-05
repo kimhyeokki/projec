@@ -7,9 +7,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import java.io.File;
 import java.io.IOException;
 
 import com.khk11.dao.MemberDao;
+import com.khk11.dto.Member;
+import com.khk11.util.CookieManager;
 import com.khk11.util.ScriptWriter;
 
 /**
@@ -44,10 +47,20 @@ public class DeleteProcess extends HttpServlet {
 		String userPW = request.getParameter("userPW");
 		MemberDao memberDao = new MemberDao();
 		int result =  memberDao.deleteMember(loggedID,userPW);
+		//--------------이미지 지우기-------------------------//
+		Member loggedMember = (Member)session.getAttribute("loggedMember");
+		String profile =loggedMember.getProfile();
+		String filePath = "C:\\upload";
 		if(result>0) {
+			File profileFile = new File(filePath+File.separator+profile);
+			if(profileFile.exists()) {
+				profileFile.delete();
+			}
 //			 session.setAttribute("loggedName",null);  //삭제시 session의 값 null 변경
 			 ScriptWriter.alertAndNext(response, userName+"님 회원탈퇴되었습니다", "../index/index");
 			 session.invalidate(); //세션값 모두 삭제
+			 CookieManager.deleteCookie(response, "cookieID");
+			 
 		}else{
 			ScriptWriter.alertAndBack(response, "비밀번호가 일치하지 않습니다");
 		}

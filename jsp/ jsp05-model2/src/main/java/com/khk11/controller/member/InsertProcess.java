@@ -57,7 +57,16 @@ public class InsertProcess extends HttpServlet {
 		//2. uuid
 		
 		//폴더에 저장
-		String uploadDirectory = "upload";  //폴더 이름 지정해주고  
+		//String uploadDirectory = "upload";  //폴더 이름 지정해주고 
+		//	String realuploadPath = getServletContext().getRealPath(uploadDirectory);
+		String uploadDirectory = "C:\\upload";  //폴더 이름 지정해주고  
+		String realuploadPath = uploadDirectory;
+		//만약 폴더를 모르고 안만들었을때 폴더 만들기
+		File dir = new File(realuploadPath);
+		if(!dir.exists()) {
+			dir.mkdir();
+		}
+		
 		String partHeader = profile.getHeader("Content-disposition"); //Header값을 가져온다 
 		//form-data; name="profile"; filename="파인애플.png"
 		System.out.println(partHeader);
@@ -66,21 +75,25 @@ public class InsertProcess extends HttpServlet {
 		System.out.println(partHeaderArray[1]);   //"파인애플.png"
 		String origanlFileName = partHeaderArray[1].trim().replace("\"", ""); //따옴표 제거(특수문자:\",ex): \#)
 		//실질적인(물리적인) 경로 HOW?
-		String realuploadPath = getServletContext().getRealPath(uploadDirectory);
+		String newFileName = "";
 		if(!origanlFileName.isEmpty()) {
 			profile.write(realuploadPath+File.separator+origanlFileName);  //저장하는 곳 타입은(Part)
+			// 포도.png -> 포도_날짜 , png 두개로 분리
+			String ext = origanlFileName.substring(origanlFileName.lastIndexOf("."));  //=> .png
+			System.out.println(ext);
+			String firstFileName = origanlFileName.substring(0,origanlFileName.lastIndexOf(".")); //=> 포도
+			Date now = new Date();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss"); 
+			String strNow = simpleDateFormat.format(now); //=> "20230927-시간"
+			newFileName = firstFileName+strNow+ext; //포도+시간.png 새로운 파일이름
+			System.out.println(newFileName);
+			File oldFile = new File(realuploadPath+File.separator+origanlFileName);  // 경로/포도.png
+			File newFile = new File(realuploadPath+File.separator+newFileName);    // 경로/newfileName
+			oldFile.renameTo(newFile); // 포도.png => newFileName으로 변경
+		}else {
+			newFileName = "";
 		}
-		// 포도.png -> 포도_날짜 , .png 두개로 분리
-		String ext = origanlFileName.substring(origanlFileName.lastIndexOf("."));  //=> .png
-		String firstFileName = origanlFileName.substring(0,origanlFileName.lastIndexOf(".")); //=> 포도
-		Date now = new Date();
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss"); 
-		String strNow = simpleDateFormat.format(now); //=> "20230927-시간"
-		String newFileName = firstFileName+strNow+ext; //포도+시간.png 새로운 파일이름
-		System.out.println(newFileName);
-		File oldFile = new File(realuploadPath+File.separator+origanlFileName);  // 경로/포도.png
-		File newFile = new File(realuploadPath+File.separator+newFileName);    // 경로/newfileName
-		oldFile.renameTo(newFile); // 포도.png => newFileName으로 변경
+		
 		
 		Member insertMember = new Member();
 		insertMember.setUserID(userID);

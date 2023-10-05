@@ -75,7 +75,7 @@ public class MemberDao implements MemberService {
 				loggedmember = new Member();
 				loggedmember.setUserID(rs.getString("userid"));
 				loggedmember.setUserName(rs.getString("userName"));
-				
+				loggedmember.setProfile(rs.getString("profile"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
