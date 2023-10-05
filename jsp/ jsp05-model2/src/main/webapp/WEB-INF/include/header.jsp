@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib uri="jakarta.tags.core" prefix="c" %>
+    <%@taglib uri="jakarta.tags.functions" prefix="fn"%>
    
 <!DOCTYPE html>
 <html>
@@ -9,7 +10,7 @@
 <title>Insert title here</title>
 <!--include : 공통된 코드를 모아서 파일에 붙여 넣는다.   -->
 <link rel="stylesheet" href="../css/bootstrap.min.css" />
-<link rel="stylesheet" href="../css/form.css" />
+<link rel="stylesheet" href="../css/layout.css" />
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="../js/jquery-3.7.1.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -31,12 +32,24 @@
       </ul>
      </c:when>
      <c:otherwise>
+     <c:choose>
+        <c:when test="${loggedMember.profile == null}">
           <ul class="nav nav-pills">
         <li class="nav-item"><a href="../index/index" class="nav-link active" aria-current="page">MY Home</a></li>
         <li class="nav-item"><a href="../member/logout" class="nav-link">로그아웃</a></li>
-        <li class="nav-item"><a href="../member/info?userID=${loggedID }" class="nav-link">${loggedName }</a></li>
+       <li class="nav-item"><a href="../member/info?userID=${loggedID }" class="nav-link">${loggedName }</a></li>        
         <li class="nav-item"><a href="../board/list" class="nav-link">게시판</a></li>
+        </ul>
+        </c:when>
+        <c:otherwise>
+        <ul class="nav nav-pills">
+         <li class="nav-item"><a href="../index/index" class="nav-link active" aria-current="page">MY Home</a></li>
+        <li class="nav-item"><a href="../member/logout" class="nav-link">로그아웃</a></li>
+        <li class="nav-item"><a href="../member/info?userID=${loggedID }" class="nav-link"><img src="/_jsp05-model2/upload/${loggedMember.profile }" class="small-profile"></a></li>  
+          <li class="nav-item"><a href="../board/list" class="nav-link">게시판</a></li>      
       </ul>
+        </c:otherwise>
+          </c:choose>
       </c:otherwise>
       </c:choose>
     </header>

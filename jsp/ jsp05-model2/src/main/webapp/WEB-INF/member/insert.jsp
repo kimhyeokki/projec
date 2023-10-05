@@ -93,8 +93,10 @@
               <input type="file" class="form-control" id="profile" placeholder="png,jpg"
                name="profile" accept=".jpg,.png,.gif,.jpeg" />
             </div>
+            <div class="preview"></div>
           </div>
         </div>
+        
         <div class="mt-5 mb-5 d-flex justify-content-center">
           <div class="">
             <button type="submit" class="btn btn-primary" id="btnSubmit">회원가입</button>
@@ -225,5 +227,23 @@
     	  }
     	  return false;
       });
+      //이미지 미리보기
+      $("#profile").on("change",function(e){
+    	  const file = e.target.files[0];
+    	  console.log(e.target.files);
+    	  console.log(file.name);
+    	  const ext = file.name.substring(file.name.lastIndexOf(".")+1);
+    	  console.log(ext);
+    	  if(!(ext==="png"||ext==="jpg"||ext==="gif")){
+    		  alert("이미지 형식이 맞지 않습니다.");
+    		  $("#profile").val("");
+    		  return false;
+    	  }
+    	  const reader = new FileReader();
+    	  reader.onload = function(e){
+    		  $(".preview").html(`<img src="\${e.target.result}">`);
+    	  }
+    	  reader.readAsDataURL(file);
+      })
     </script>
 <%@ include file="../include/footer.jsp" %>

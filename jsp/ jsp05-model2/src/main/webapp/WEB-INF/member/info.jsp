@@ -7,11 +7,22 @@
 <div class="form-signin">
 <table class="table striped">
   <tbody>
-  <tr>
+  <c:choose>
+  <c:when test="${not empty infomember.profile}">
+    <tr>
       <th scope="row">profile</th>
-      <td><img src="/_jsp05-model2/upload/${infomember.profile }"></td>
+      <td><img src="${pageContext.request.contextPath}/upload/${infomember.profile }" class="profile"></td>
       				<!--${pageContext.request.contextPath}  --> 
     </tr>
+  </c:when>
+  <c:otherwise>
+    <tr>
+      <th scope="row">profile</th>
+      <td><img src="../images/user.png" class="profile"></td>
+      				<!--${pageContext.request.contextPath}  --> 
+    </tr>
+  </c:otherwise>
+  </c:choose>
     <tr>
       <th scope="row">ID</th>
       <td>${loggedID }</td> 

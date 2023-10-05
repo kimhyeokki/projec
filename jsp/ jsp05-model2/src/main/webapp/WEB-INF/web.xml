@@ -181,22 +181,122 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>List</display-name>
-    <servlet-name>List</servlet-name>
-    <servlet-class>com.khk11.controller.board.List</servlet-class>
+    <display-name>BoardList</display-name>
+    <servlet-name>BoardList</servlet-name>
+    <servlet-class>com.khk11.controller.board.BoardList</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>List</servlet-name>
-    <url-pattern>/board/List</url-pattern>
+    <servlet-name>BoardList</servlet-name>
+    <url-pattern>/board/list</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>Lsit</display-name>
-    <servlet-name>Lsit</servlet-name>
-    <servlet-class>com.khk11.controller.member.Lsit</servlet-class>
+    <display-name>BoardWrite</display-name>
+    <servlet-name>BoardWrite</servlet-name>
+    <servlet-class>com.khk11.controller.board.BoardWrite</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Lsit</servlet-name>
-    <url-pattern>/member/lsit</url-pattern>
+    <servlet-name>BoardWrite</servlet-name>
+    <url-pattern>/board/write</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BoardWriteProcess</display-name>
+    <servlet-name>BoardWriteProcess</servlet-name>
+    <servlet-class>com.khk11.controller.board.BoardWriteProcess</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BoardWriteProcess</servlet-name>
+    <url-pattern>/board/board-write-pro</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BoardView</display-name>
+    <servlet-name>BoardView</servlet-name>
+    <servlet-class>com.khk11.controller.board.BoardView</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BoardView</servlet-name>
+    <url-pattern>/board/view</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ImageUpload</display-name>
+    <servlet-name>ImageUpload</servlet-name>
+    <servlet-class>com.khk11.controller.board.ImageUpload</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ImageUpload</servlet-name>
+    <url-pattern>/board/upload</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BoardDelete</display-name>
+    <servlet-name>BoardDelete</servlet-name>
+    <servlet-class>com.khk11.controller.board.BoardDelete</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BoardDelete</servlet-name>
+    <url-pattern>/board/delete</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BoardDeleteProcess</display-name>
+    <servlet-name>BoardDeleteProcess</servlet-name>
+    <servlet-class>com.khk11.controller.board.BoardDeleteProcess</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BoardDeleteProcess</servlet-name>
+    <url-pattern>/board/delete-process</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BoardModify</display-name>
+    <servlet-name>BoardModify</servlet-name>
+    <servlet-class>com.khk11.controller.board.BoardModify</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BoardModify</servlet-name>
+    <url-pattern>/board/modify</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BoardModifyProcess</display-name>
+    <servlet-name>BoardModifyProcess</servlet-name>
+    <servlet-class>com.khk11.controller.board.BoardModifyProcess</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BoardModifyProcess</servlet-name>
+    <url-pattern>/board/modify-process</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BoardUpdateProcess</display-name>
+    <servlet-name>BoardUpdateProcess</servlet-name>
+    <servlet-class>com.khk11.controller.board.BoardUpdateProcess</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BoardUpdateProcess</servlet-name>
+    <url-pattern>/board/update-process</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>List</display-name>
+    <servlet-name>List</servlet-name>
+    <servlet-class>com.khk11.controller.member.List</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>List</servlet-name>
+    <url-pattern>/member/list</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BoardSearchPro</display-name>
+    <servlet-name>BoardSearchPro</servlet-name>
+    <servlet-class>com.khk11.controller.board.BoardSearchPro</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BoardSearchPro</servlet-name>
+    <url-pattern>/board/search-pro</url-pattern>
   </servlet-mapping>
 </web-app>
