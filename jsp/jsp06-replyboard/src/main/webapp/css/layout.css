@@ -1,0 +1,27 @@
+@charset "UTF-8";
+.form-signin{
+	max-width: 330px;
+}
+.profile{
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border-radius: 500px;
+}
+.small-profile{
+	width: 30px;
+	height: 30px;
+	object-fit: cover;
+}
+.preview img{
+	max-width: 150px;
+	
+}
+.ck-editor__main .ck-content{
+	height:300px;
+}
+.main{
+	min-height: 500px;
+}
+
+
