@@ -2,15 +2,87 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!--  xml에서 특수문자처리 <![CDATA[<=]]>  -->
 <mapper namespace="com.khk11.mybatis">
- <select id="getAllReplyboard" resultType="com.khk11.dto.BoardDto">
-	select * from replyboard 
-</select>
-<select id="getSelectOne" parameterType="int"  resultType="com.khk11.dto.BoardDto">
-	select * from replyboard where no = #{no}
-</select>
-<select id="numSelect" parameterType="int" resultType="com.khk11.dto.BoardDto">
-	select * from(select rownum as num, r.* from (select * from replyboard order by regroup desc ,relevel asc)r) where num = #{num}
+ <select id="getAllReplyboard"  parameterType="PageMap" resultType="BoardDto" >
+	select * from(select rownum as num, r.* from (select * from replyboard order by regroup desc ,relevel asc)r)
+	  where num  <![CDATA[>=]]> #{start} and num <![CDATA[<=]]> #{end}
+	  <!--변수 2개이상일 때 Map을 이용하자  -->
+	  
+	 <!-- 특수문자처리 또 다른 방법
+	  <![CDATA][  
+	  	select * from(select rownum as num, r.* from (select * from replyboard order by regroup desc ,relevel asc)r)
+	  where num  >= #{num} and num <= #{num}
+	  ]]>
+	    -->
 </select>
 
+<select id="getSelectOne" parameterType="int"  resultType="BoardDto">
+	select * from replyboard where no = #{no}
+</select>
+
+<select id="numSelect" parameterType="int" resultType="BoardDto">
+	select * from(select rownum as num, r.* from (select * from replyboard order by regroup desc ,relevel asc)r)
+	  where num = #{num}
+</select>
+
+<insert id="writeBoard" parameterType="BoardDto">
+	insert into replyboard values(seq_replyboard.nextval,#{userID},#{name},#{title},
+	 #{content},sysdate,0,#{regroup},#{relevel},#{restep},1)
+</insert>
+
+<delete id="deleteBoard" parameterType="int">
+	delete from replyboard where no =#{no}
+</delete>
+
+<delete id="deleteAllBoard" parameterType="List">
+	delete from replyboard 
+	where no IN
+	<!--(3,4,5)-->
+	<foreach collection="list" item="item" index="i" open="(" close=")" separator=",">
+	#{item}
+	</foreach>
+</delete>
+
+<delete id="deleteAllBoardArray" parameterType="int" >
+	delete from replyboard
+	where no IN
+	<foreach collection="array" item="item" open="(" close=")" separator=",">#{item}</foreach>
+</delete>
+
+<update id="updateBoard" parameterType="int" >
+	update replyboard set hit =hit+ 1 where no = #{no} 
+</update>
+
+<select id="searchSelect" parameterType="HashMap" resultType="BoardDto">
+	select * from replyboard where 
+	<choose>
+	<when test="category=='name'">
+		name Like '%'||#{keyword}||'%' 
+	</when>
+	<when test="category=='title'">
+		title Like '%'||#{keyword}||'%' 
+	</when>
+	<when test="category=='content'">
+		content Like '%'||#{keyword}||'%' 
+	</when>
+	<when test="category=='all'">
+		(name Like '%'||#{keyword}||'%') or
+		(title Like '%'||#{keyword}||'%') or
+		(content Like '%'||#{keyword}||'%') 
+	</when>
+	</choose>
+</select>
+
+<select id="viewBoard" parameterType="int" resultType="BoardDto">
+	select * from(select rownum as num, r.* from (select * from replyboard order by regroup desc ,relevel asc)r)
+	where no = #{no}
+</select>
+
+<select id="getmax" resultType="BoardDto">
+	select Nvl(max(regroup),0) as max from replyboard
+</select>
+
+
+<!--resultType : 결과 타입  parameterTpye : 변수설정하는 타입  -->
 </mapper>
