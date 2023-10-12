@@ -4,7 +4,7 @@
   	<div class="container">
   			<table class="table">
   <thead>
-    <tr>
+    <tr> 
       <th scope="col">no</th>
       <th scope="col">title</th>
       <th scope="col">writer</th>
@@ -53,14 +53,36 @@
       <td>${board.regroup }</td>
       <td>${board.relevel }</td>
       <td>${board.restep }</td>
-     
       
     </tr>
   	</c:forEach>
   </tbody>
 </table>
+	<form action="../board/search">
+		<input type="text" name="keyword">
+		<select name="category">
+			<option value="name">글쓴이</option>
+			<option value="title">제목</option>
+			<option value="content">내용</option>
+			<option value="all">전체</option>
+		</select>
+		<button class="btn btn-primary">검색</button>
+	</form>
 	<div class="d-flex justify-content-center mt-3 mb-3">
-	<a href="../board/write" class="btn btn-primary">글쓰기</a> </div>
-  	</div>
+		<nav aria-label="Page navigation example">
+  		<ul class="pagination">
+   		<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+  		<c:forEach  var="i" begin="1" end="10" step="1"> 
+    	<li class="page-item"><a class="page-link" href="#">${i}</a></li>
+  		</c:forEach>
+    	<li class="page-item"><a class="page-link" href="#">Next</a></li>
+  		</ul>
+		</nav>
+	</div>
+<div class="d-flex justify-content-center mt-3 mb-3">
+	<a href="../board/write" class="btn btn-primary mb-3 ">글쓰기</a> 
+	<a href="../board/list" class="btn btn-primary mb-3 ms-1">목록</a></div>
+	 
+  </div>
 <%@ include file="../include/footer.jsp"  %>
 

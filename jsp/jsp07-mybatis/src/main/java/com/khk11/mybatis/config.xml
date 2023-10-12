@@ -3,18 +3,22 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+  <typeAliases>
+  <typeAlias alias="PageMap" type="com.khk11.dto.PageMap"/>
+  <typeAlias alias="BoardDto" type="com.khk11.dto.BoardDto"/>   <!--타이핑 줄이기 위해   -->
+  </typeAliases>									<!--com.khk11.BoardDto 대신 BoardDto로 쓰기 가능-->
   <environments default="development">
     <environment id="development">
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
-        <property name="driver" value="oracle.jdbc.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-        <property name="username" value="kimhk11"/>
-        <property name="password" value="1234"/>
+        <property name="driver" value="oracle.jdbc.OracleDriver"/>  <!--driver 이름  -->
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/> <!--db 경로  -->
+        <property name="username" value="kimhk11"/>                 <!--ID  -->
+        <property name="password" value="1234"/>					<!--PW  -->
       </dataSource>
     </environment>
   </environments>
   <mappers>
-    <mapper resource="com/khk11/mybatis/board.xml"/>
+    <mapper resource="com/khk11/mybatis/board.xml"/>   				<!--mapping 파일 위치  -->
   </mappers>
 </configuration>

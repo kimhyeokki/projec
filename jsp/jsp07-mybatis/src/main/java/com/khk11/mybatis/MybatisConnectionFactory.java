@@ -12,14 +12,15 @@ public class MybatisConnectionFactory {
 	private static SqlSessionFactory sqlSessionFactory;
 	static {
 		try {
-			String resource = "com/khk11/mybatis/config.xml";
-			InputStream inputStream = Resources.getResourceAsStream(resource);
+			String resource = "com/khk11/mybatis/config.xml";  //config 파일 위치
+			InputStream inputStream = Resources.getResourceAsStream(resource);  //try catch해야함
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 	public static SqlSession getSqlSession() {
-		return sqlSessionFactory.openSession();
+		//commit 설정   auto-commit하려면 true, default값은 false임
+		return sqlSessionFactory.openSession(true);
 	}
 }

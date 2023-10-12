@@ -1,0 +1,16 @@
+@charset "UTF-8";
+.step2 {
+	padding-left: 20px;
+}
+.step3 {
+	padding-left: 40px;
+}
+.step::before{
+		content: "\F132";
+		display: inline-block;
+		font-family: "bootstrap-icons";
+}
+.list a{
+	text-decoration: none;
+	color: black;
+}

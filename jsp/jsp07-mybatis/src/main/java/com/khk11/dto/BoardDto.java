@@ -1,6 +1,14 @@
 package com.khk11.dto;
 
 public class BoardDto {
+	private int max;
+	public int getMax() {
+		return max;
+	}
+	public void setMax(int max) {
+		this.max = max;
+	}
+
 	private int num;
 	private int no;
 	private String userID;
