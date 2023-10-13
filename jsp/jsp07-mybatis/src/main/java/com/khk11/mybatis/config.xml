@@ -4,6 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   <typeAliases>
+  <typeAlias alias="MemberDto" type="com.khk11.dto.MemberDto"/>
   <typeAlias alias="PageMap" type="com.khk11.dto.PageMap"/>
   <typeAlias alias="BoardDto" type="com.khk11.dto.BoardDto"/>   <!--타이핑 줄이기 위해   -->
   </typeAliases>									<!--com.khk11.BoardDto 대신 BoardDto로 쓰기 가능-->
@@ -20,5 +21,6 @@
   </environments>
   <mappers>
     <mapper resource="com/khk11/mybatis/board.xml"/>   				<!--mapping 파일 위치  -->
+ 	<mapper resource="com/khk11/mybatis/member.xml"/>
   </mappers>
 </configuration>

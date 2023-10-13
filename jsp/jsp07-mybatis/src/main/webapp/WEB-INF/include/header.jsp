@@ -3,7 +3,7 @@
 <%@taglib uri="jakarta.tags.core" prefix="c"%>
    
 <!DOCTYPE html>
-<html>
+<html lang="en" data-bs-theme="light">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -31,9 +31,17 @@
       </a>
       <ul class="nav nav-pills">
         <li class="nav-item"><a href="../index/index" class="nav-link active" aria-current="page">MY Home</a></li>
+        <c:choose>
+        <c:when test="${loggedID == null }">
         <li class="nav-item"><a href="../member/insert" class="nav-link">회원가입</a></li>
-        <li class="nav-item"><a href="../member/Login" class="nav-link">로그인</a></li>
-        <li class="nav-item"><a href="../member/Login" class="nav-link">게시판</a></li>
+        <li class="nav-item"><a href="../member/login" class="nav-link">로그인</a></li>
+        </c:when>
+        <c:otherwise>
+        <li class="nav-item"><a href="../member/info" class="nav-link">${loggedName}<img src="/jsp07-mybatis/upload/${memberDto.profile }"> </a></li>
+        <li class="nav-item"><a href="../member/logout" class="nav-link">로그아웃</a></li>
+        <li class="nav-item"><a href="../board/list" class="nav-link">게시판</a></li>
+        </c:otherwise>
+        </c:choose>
       </ul>
     </header>
   </div>

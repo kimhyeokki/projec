@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -55,6 +57,11 @@ public class BoardList extends HttpServlet {
 		//System.out.println(boardDto1.toString());
 		request.setAttribute("boardList", boardList); //데이터를 저장
 		dis.forward(request, response);
+		HttpSession session = request.getSession();
+		if(session.getAttribute("modalState")!=null) {
+			session.removeAttribute("modalState");			
+		}
+		
 	}
 
 	/**

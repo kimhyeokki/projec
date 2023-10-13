@@ -67,8 +67,8 @@
 		content Like '%'||#{keyword}||'%' 
 	</when>
 	<when test="category=='all'">
-		(name Like '%'||#{keyword}||'%') or
-		(title Like '%'||#{keyword}||'%') or
+		(name    Like '%'||#{keyword}||'%') or
+		(title   Like '%'||#{keyword}||'%') or
 		(content Like '%'||#{keyword}||'%') 
 	</when>
 	</choose>
