@@ -1,0 +1,111 @@
+//객체 지향
+1. User user = new User();
+
+2. public User(){
+
+    }
+3. public static void main(String[] args) {
+        double area = Circle.getArea(10);
+        System.out.println(area);
+    }
+4.public class ChildShape extends Shape{
+
+    public ChildShape(int x, int y) {
+        super(x, y);
+    }
+
+    @Override
+    public double area() {
+        double result = x*y;
+        return result;
+    }
+    public static void main(String[] args) {
+        ChildShape childShape = new ChildShape(10, 20);
+        double  area = childShape.area();
+        System.out.println(area);
+    }
+    
+}
+
+5.
+공통점은 메서드를 확장하거나 재정의 하는 것이고
+차이점은 오버라이딩은 부모 클래스에서 상속받은 메서드를 재정의 하는 것이고,
+오버로딩은 내부 클래스에서 확장하는 것이다.
+
+6.
+업캐스팅은 상속 받은 자식 클래스의 객체가 부모 클래스의 객체로 형변환 하는 것이다.
+다운캐스팅은 업캐스팅의 반대로 원래대로 돌려놓는 것이다.
+
+7.인터페이스
+구현부를 만들지않고 생성만 하는 추상적 클래스이고,
+다중 상속받은 자식 클래스는 부모 인터페이스의 생성된 메서드를 모두 오버라이딩해야 한다.
+
+8.추상메서드
+구현부를 만들지않고 선언만 하는 메서드입니다.
+구현부는 상속 받은 자식에서 반드시 구현해야한다.
+추상메서드를 가지고 있는 클래스는 반드시 abstract 선언해야한다.
+
+9.
+import java.util.ArrayList;
+class UserList{
+    private String id;
+    private String pwd;
+    private String email;
+    public UserList(String id,String pwd,String email){
+    this.id=id;
+    this.pwd=pwd;
+    this.email=email;
+    }
+public String getId(){return id;}
+public String getPwd(){return pwd;}
+public String getEmail(){return email;}
+public static void main(String[] args) {
+    UserList user = new UserList("10", "20", "40");
+    ArrayList<UserList> arrayList = new ArrayList<>();
+    arrayList.add(user);
+   for (UserList user2 : arrayList) {
+       System.out.println(user2.email+user2.id+user2.pwd);
+   }
+}
+}
+
+10.
+isempty는 문자열의 길이가 0이면 true 값을 가지고
+isblank은 문자열이 비어 있거나 빈 공백으로 이루어져 있으면 true 값을 가진다.
+예를 들어 " ".isempty false   ," ".isblank 는 true
+
+
+
+
+애플리캐이션 
+1.
+class Member{
+  private String name;
+  우클릭 후 sourse 에 getter setter를  클릭하여 생성합니다.
+}
+
+2.
+2번째 행이고
+Nullpointerexception
+4.
+abstract
+
+5.
+List<> list = new ArrayList()
+
+List를 쓰는 이유는
+List의 다른 기능을 사용하기 유용하기 때문이다.
+
+
+
+7.
+
+<script type="text/javascript">
+	$("#btnLogin").on("click",function(){
+		if( $("#userID").val().trim()==""){
+			return false;
+		} else if(  $("#userPW").val().trim()==""){
+			return false
+		}
+	})
+</script>
