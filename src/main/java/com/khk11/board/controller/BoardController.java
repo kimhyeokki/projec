@@ -2,6 +2,7 @@ package com.khk11.board.controller;
 
 import com.khk11.board.dao.BoardDao;
 import com.khk11.board.dto.BoardDto;
+import com.khk11.board.dto.ModalDto;
 import com.khk11.board.service.BoardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -66,7 +67,9 @@ public class BoardController {
         }
         int result = boardService.insertBoard(boardDto);
         if(result>0){
-            redirectAttributes.addFlashAttribute("isState","success");
+            ModalDto modalDto = new ModalDto().builder().isState("success").title("글쓰기").
+                    msg("글이 입력되었습니다.").build();
+            redirectAttributes.addFlashAttribute("modalDto",modalDto);
         }
        /* redirectAttributes.addAttribute("name","김혁기");
         redirectAttributes.addFlashAttribute("name",boardDto.getName());
