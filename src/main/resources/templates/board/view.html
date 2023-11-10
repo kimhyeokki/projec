@@ -4,27 +4,71 @@
       layout:decorate="~{layout/layout}"
 >
 <div layout:fragment="content" class="main">
-    <form method="get" action="" th:action="@{/board/write}" th:object="${boardDto}">
-        <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">title</label>
-            <input type="text" class="form-control" id="title" name="title" placeholder="제목" value="">
-          <!-- // <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" th:v>오류메세지</p>-->
-        </div>
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">name</label>
-            <input type="text" class="form-control"  ></input>
-         <!--   <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error">오류</p>-->
-        </div>
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">content</label>
-            <textarea type="text" class="form-control" id="content" name="content" rows="5"></textarea>
-           <!-- <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="error">오류</p>-->
-        </div>
-        <div class="mt-5">
-            <button class="btn btn-primary"> 확인 </button>
-        </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">no</th>
+            <th scope="col">제목</th>
+            <th scope="col">이름</th>
+            <th scope="col">내용</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr >
+            <td th:text="${boardDto.id}">Otto</td>
+            <td th:text="${boardDto.title}">Otto</td>
+            <td th:text="${boardDto.name}">@mdo</td>
+            <td th:utext="${boardDto.content}">@mdo</td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+        <a class="btn btn-danger" th:href="@{/board/modify/{id}(id=${boardDto.id}, currentPage=${param.currentPage})}">수정</a>
+        <a class="btn btn-danger" id="btnDelete" th:href="@{/board/delete/{id}(id=${boardDto.id}, currentPage=${param.currentPage})}">삭제</a>
+        <a class="btn btn-danger" th:href="@{/board/list}"> 목록 </a>
+    </div>
+    <form action="/board/test" method="post" id="testForm">
+        <input type="hidden" name="id" th:value="${boardDto.id}">
+        <input type="hidden" name="currentPage" th:value="${param.currentPage}">
+        <!--<button>전송</button>-->
     </form>
+    <script th:inline="javascript">
+        const idx = [[${boardDto.id}]];
+        const currentPage =[[${param.currentPage}]];
+        $("#btnDelete").on("click",function(e){
+            $("#testForm").submit();
+            return false;
+        })
+    </script>
+    <!--서버로 데이터 보내는 방법
+        form으로 보내가 form button 태그를 클릭하면 데이너 날아감 장점 post,get 사용가능
 
+        a 태그로 링크 태워서 보내기 get만 사용가능
 
+        ajax로 보내기 (get,post,delete,put) 가장 기능이 유용하다
+
+        form 태그의 input 타입 히든으로 값을 보내는데 안쪽에 버튼이 없을 때 JS를 이용해서
+        form.sumit()을 이용
+     -->
+   <!-- <script th:inline="javascript">
+        const idx = [[${boardDto.id}]];
+        const currentPage =[[${param.currentPage}]];
+        $("#btnDelete").on("click",function(e){
+            e.preventDefault();
+            $.ajax({
+                url:`/board/delete/${idx}}`,
+                method : "delete",
+                success:function(data){
+                    console.log(data);
+                    if(data.isDelete==="ok"){
+                        location.href=`/board/list?currentPage=${currentPage}`;
+                    }else{
+                        alert("오류입니다.");
+                    }
+                }
+            })
+        })
+
+    </script>-->
 </div>
 </html>
