@@ -2,10 +2,8 @@ package com.khk11.board.controller;
 
 import com.khk11.board.dao.BoardDao;
 import com.khk11.board.dto.BoardDto;
-import com.khk11.board.dto.Criteria;
 import com.khk11.board.dto.ModalDto;
 import com.khk11.board.service.BoardService;
-import com.khk11.utils.PageMaker;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,30 +23,28 @@ import java.util.*;
 public class BoardController {
 
     private final BoardService boardService;
-    private final PageMaker pageMaker;
 
-  /*  @GetMapping("/list")
-    public String list(Model model,@RequestParam(required = false) String category, @RequestParam(required = false) String searchTxt){
-       log.info("category==={}",category);
-        List<BoardDto> boardList = boardService.getAllBoard(category,searchTxt);
+
+    @GetMapping("/list")
+    public String list(Model model){
+        List<BoardDto> boardList = boardService.getAllBoard();
+      /*
+        boardList.add(BoardDto.builder()
+                .name("김혁기")
+                .title("제목01")
+                .content("내영2")
+                .build());
+        boardList.add(BoardDto.builder()
+                .name("김혁기02")
+                .title("제목003")
+                .content("내영03")
+                .build());
+
+       */
         model.addAttribute("title","list");
         model.addAttribute("boardList",boardList);
         return "/board/list";
-
-    }*/
-    @GetMapping("/list")
-    public String list(Model model, Criteria criteria){
-
-        List<BoardDto> boardList = boardService.getAllBoard(criteria);
-        pageMaker.setCriteria(criteria);
-        pageMaker.setTotal(boardService.getTotalCount());
-        model.addAttribute("boardList",boardList);
-        model.addAttribute("pageMaker",pageMaker);
-        log.info("pageMaker===={}",pageMaker.toString());
-        return "/board/list";
-
     }
-
     @GetMapping("/write")
     public String write(Model model){
         BoardDto boardDto = BoardDto.builder().name("장동건").build();
@@ -91,20 +87,19 @@ public class BoardController {
 
     }
     @GetMapping("/view/{id}")
-  //  @ResponseBody
-    public String getOneBoard(@PathVariable int id, Model model) {
+    @ResponseBody
+    public Map<String, Object> getOneBoard(@PathVariable int id) {
         log.info("getOneBoard==={}",id);
         BoardDto boardDto = boardService.getOneBoard(id);
-        model.addAttribute("boardDto",boardDto);
-       /* Map<String, Object> resultMap = new HashMap<>();
+        Map<String, Object> resultMap = new HashMap<>();
         if(boardDto!=null){
             resultMap.put("isState","ok");
             resultMap.put("viewData",boardDto);
         } else {
             resultMap.put("isState", "fail");
             resultMap.put("viewData",null);
-        }*/
-        return  "/board/view";
+        }
+        return  resultMap;
     }
     @DeleteMapping("/delete/{id}")
     @ResponseBody  //글자를 리턴합니다. 파일을 찾지않고
@@ -118,64 +113,5 @@ public class BoardController {
         resultMap.put("isDelete","fail");
         }
         return resultMap;
-    }
-    @GetMapping("/delete/{id}")
-        public String deleteBoard(@PathVariable int id,
-                                  @RequestParam(required = false) int currentPage,
-                                    RedirectAttributes redirectAttributes){
-            log.info("currentPage==={}",currentPage);
-            int result = boardService.deleteBoard(id);
-            if(result>0){
-                ModalDto modalDto = ModalDto.builder()
-                        .isState("success")
-                        .title("글삭제")
-                        .msg(id+"번째 글이 삭제되었습니다.").build();
-                redirectAttributes.addFlashAttribute("modalDto",modalDto);
-                return "redirect:/board/list?currentPage="+currentPage;
-            }
-            return "redirect:/board/list?currentPage="+currentPage;
-        }
-    @GetMapping("/modify/{id}")
-    //  @ResponseBody
-    public String modifyBoard(@PathVariable int id, Model model) {
-        log.info("getOneBoard==={}", id);
-        BoardDto boardDto = boardService.getOneBoard(id);
-        model.addAttribute("boardDto", boardDto);
-        return "/board/modify";
-    }
-    //유효성 검사
-    @PostMapping("/modify")
-    //  @ResponseBody
-    public String modifyProcessBoard(@Valid @ModelAttribute BoardDto boardDto,
-                                     BindingResult bindingResult, Model model,
-                                     RedirectAttributes redirectAttributes,
-                                     @RequestParam(required = false) int currentPage) {
-        if(bindingResult.hasErrors()){
-            model.addAttribute("boardDto",boardDto);
-            return "/board/modify";
-        }
-       int result = boardService.modifyBoard(boardDto);
-        if(result>0){
-            ModalDto modalDto = new ModalDto().builder().isState("success").title("글수정").
-                    msg("글이 수정되었습니다..").build();
-            redirectAttributes.addFlashAttribute("modalDto",modalDto);
-            return "redirect:/board/list?currentPage="+currentPage;
-        }
-        return "redirect:/board/list?currentPage="+currentPage;
-    }
-    @PostMapping("/test")
-
-    public String test(@RequestParam int id, @RequestParam(required = false) int currentPage,
-                       RedirectAttributes redirectAttributes){
-        int result = boardService.deleteBoard(id);
-        if(result>0){
-            ModalDto modalDto = ModalDto.builder()
-                    .isState("success")
-                    .title("글삭제")
-                    .msg(id+"번째 글이 삭제되었습니다.").build();
-            redirectAttributes.addFlashAttribute("modalDto",modalDto);
-            return "redirect:/board/list?currentPage="+currentPage;
-        }
-        return "redirect:/board/list?currentPage="+currentPage;
     }
 }
