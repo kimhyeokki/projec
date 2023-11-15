@@ -2,6 +2,7 @@ package com.khk11.board.controller;
 
 import com.khk11.board.dao.BoardDao;
 import com.khk11.board.dto.BoardDto;
+import com.khk11.board.dto.Criteria;
 import com.khk11.board.dto.ModalDto;
 import com.khk11.board.service.BoardService;
 import jakarta.validation.Valid;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
@@ -26,8 +28,8 @@ public class BoardController {
 
 
     @GetMapping("/list")
-    public String list(Model model){
-        List<BoardDto> boardList = boardService.getAllBoard();
+    public String list(Model model, Criteria criteria){
+        List<BoardDto> boardList = boardService.getAllBoard(criteria);
       /*
         boardList.add(BoardDto.builder()
                 .name("김혁기")
@@ -113,5 +115,12 @@ public class BoardController {
         resultMap.put("isDelete","fail");
         }
         return resultMap;
+    }
+
+    @PostMapping("/upload")
+    @ResponseBody
+    public  String upload(@RequestParam MultipartFile upload){
+        log.info("upload=={}",upload);
+        return "파일 업로드";
     }
 }
