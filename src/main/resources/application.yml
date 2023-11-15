@@ -30,3 +30,6 @@ logging:
   level:
     root: info
     '[com.khk11.board]': info
+
+file:
+  path: C:/upload/

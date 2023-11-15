@@ -119,8 +119,12 @@ public class BoardController {
 
     @PostMapping("/upload")
     @ResponseBody
-    public  String upload(@RequestParam MultipartFile upload){
+    public  Map<String, Object> upload(@RequestParam MultipartFile upload){
+
         log.info("upload=={}",upload);
-        return "파일 업로드";
+        Map<String, Object> map = new HashMap<>();
+        map.put("upload",true);
+        map.put("url","/upload/00daa6bd-78e7-4122-8e7c-f84b0b9f2ef6_supermario04.png");
+        return map;
     }
 }
